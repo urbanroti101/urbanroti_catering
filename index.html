@@ -223,6 +223,41 @@ body{font-family:'Nunito',sans-serif;color:var(--ink);font-size:15px;line-height
 .logout-btn{background:none;border:none;color:#fff;font-size:18px;cursor:pointer;padding:5px 6px;margin-left:4px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:background .15s}
 .logout-btn:hover{background:rgba(255,255,255,.08)}
 .logout-btn:active{transform:scale(.94)}
+/* ── CUSTOMERS TAB ── */
+#nav .fab-slot{flex:0 0 76px}
+#n-customers{flex:2}
+.cu-h{display:flex;justify-content:space-between;align-items:baseline;padding:16px 16px 0}
+.cu-h h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--ink)}
+.cu-h span{font-size:12px;font-weight:800;color:var(--muted)}
+.cu{margin:0 14px 10px;background:#fff;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--sh);padding:13px 14px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:.15s}
+.cu:active{transform:scale(.99)}
+.cu-av{width:42px;height:42px;border-radius:50%;background:rgba(196,85,42,.1);color:var(--clay);font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cu-av.big{width:54px;height:54px;font-size:22px}
+.cu-main{flex:1;min-width:0}
+.cu-name{font-size:16px;font-weight:800;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cu-line{font-size:12px;color:var(--muted);margin-top:2px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cu-side{text-align:right;flex-shrink:0}
+.cu-n{font-size:12px;font-weight:900;color:var(--clay)}
+.cu-amt{font-size:11px;color:var(--muted);font-weight:700;margin-top:2px}
+.cd-back{margin:14px 14px 0;border:none;background:none;color:var(--clay);font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;padding:4px 0}
+.cd-card{margin:10px 14px 12px;background:#fff;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--sh);padding:16px;display:flex;gap:14px;align-items:center}
+.cd-name{font-size:19px;font-weight:900;color:var(--ink);word-break:break-word}
+.cd-card a,.cd-nomail{display:block;font-size:13px;font-weight:700;margin-top:3px;color:var(--clay);text-decoration:none;word-break:break-all}
+.cd-nomail{color:var(--muted);font-weight:600}
+.cd-stats{margin:0 14px 14px;display:flex;gap:8px}
+.cd-stats div{flex:1;background:#fff;border:1px solid var(--border);border-radius:var(--r2);padding:10px 6px;text-align:center}
+.cd-stats b{display:block;font-size:15px;font-weight:900;color:var(--ink)}
+.cd-stats span{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+.cd-sec{margin:0 16px 8px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+.ev{margin:0 14px 12px;background:#fff;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden}
+.ev-t{padding:12px 15px;background:var(--cream2)}
+.ev-d{font-size:14px;font-weight:900;color:var(--ink)}
+.ev-s{font-size:12px;color:var(--muted);margin-top:2px;font-weight:600}
+.ev-r{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 15px;cursor:pointer}
+.ev-r+.ev-r{border-top:1px dashed var(--border)}
+.ev-id{font-size:13px;font-weight:900;color:var(--clay)}
+.ev-am{font-size:14px;font-weight:900;color:var(--ink);text-align:right}
+.ev-pdf{margin-top:5px;border:none;background:var(--clay);color:#fff;border-radius:30px;padding:5px 12px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;cursor:pointer}
 .user-chip{background:rgba(255,255,255,.18);color:#fff;font-size:10px;font-weight:800;padding:4px 9px;border-radius:20px;letter-spacing:.3px}
 </style>
 </head>
@@ -384,11 +419,21 @@ window.dispatchEvent(new Event('urFBReady'));
       <div id="hist-list"></div>
       <div class="pb"></div>
     </div>
+    <div class="screen" id="s-customers">
+      <div id="cust-list-view">
+        <div class="cu-h"><h3>👥 Customers</h3><span id="cust-count"></span></div>
+        <div class="sw"><input class="sr" id="csrch" placeholder="Search name, phone or email…" oninput="renderCustomers()"></div>
+        <div id="cust-list"></div>
+      </div>
+      <div id="cust-detail-view" style="display:none"></div>
+      <div class="pb"></div>
+    </div>
   </div>
   <div id="nav">
     <button class="ni on" id="n-home" onclick="go('home')"><div class="ni-bar"></div><div class="ic">🏠</div><div class="lb">Home</div></button>
-    <div class="fab-slot"><button class="fab" onclick="newQ()">✦</button></div>
     <button class="ni" id="n-history" onclick="go('history')"><div class="ni-bar"></div><div class="ic">📋</div><div class="lb">Records</div></button>
+    <div class="fab-slot"><button class="fab" onclick="newQ()">✦</button></div>
+    <button class="ni" id="n-customers" onclick="go('customers')"><div class="ni-bar"></div><div class="ic">👥</div><div class="lb">Customers</div></button>
   </div>
 </div>
 <div class="bd2" id="bd" onclick="cSheet()"></div>
@@ -464,7 +509,7 @@ const fd=d=>{if(!d)return'';return new Date(d+'T00:00:00').toLocaleDateString('e
 const fdl=d=>{if(!d)return'';return new Date(d+'T00:00:00').toLocaleDateString('en-SG',{day:'numeric',month:'long',year:'numeric'})};
 
 // ── NAV ──
-function go(s){document.querySelectorAll('.screen').forEach(e=>e.classList.remove('active'));document.querySelectorAll('.ni').forEach(e=>e.classList.remove('on'));document.getElementById('s-'+s).classList.add('active');const n=document.getElementById('n-'+s);if(n)n.classList.add('on');if(s==='home'){dash();renderHome()}if(s==='history')renderHist()}
+function go(s){document.querySelectorAll('.screen').forEach(e=>e.classList.remove('active'));document.querySelectorAll('.ni').forEach(e=>e.classList.remove('on'));document.getElementById('s-'+s).classList.add('active');const n=document.getElementById('n-'+s);if(n)n.classList.add('on');if(s==='home'){dash();renderHome()}if(s==='history')renderHist();if(s==='customers'){custOpenKey=null;renderCustomers()}}
 
 // ── WIZARD STATE ──
 var step=0,wd={},pis=[],acs=[],eds=[],mf=null,editingId=null,editingInvId=null;
@@ -476,7 +521,7 @@ function newQ(){editingId=null;editingInvId=null;step=0;wd={};pis=[{n:'Adults Pa
 function editQ(id){
   const q=DB.quotes().find(x=>x.id===id);if(!q)return;
   editingId=id;step=0;
-  wd={fn:q.from?.name||'',fc:q.from?.contact||'',cn:q.customer?.name||'',cc:q.customer?.contact||'',ve:q.venue||'',ed:q.eventDate||'',sl:q.slot||'',ts:q.timeStart||'',te:q.timeEnd||'',pa:q.pax?.adults||0,pk:q.pax?.kids||0,wt:q.terms||TERMS,rm:q.remarks||'',menuText:q.menuText||'',discType:q.discount?.type||'amt',discVal:q.discount?.value||0};
+  wd={fn:q.from?.name||'',fc:q.from?.contact||'',cn:q.customer?.name||'',cc:q.customer?.contact||'',ce:q.customer?.email||'',ve:q.venue||'',ed:q.eventDate||'',sl:q.slot||'',ts:q.timeStart||'',te:q.timeEnd||'',pa:q.pax?.adults||0,pk:q.pax?.kids||0,wt:q.terms||TERMS,rm:q.remarks||'',menuText:q.menuText||'',discType:q.discount?.type||'amt',discVal:q.discount?.value||0};
   eds=(q.eventDates&&q.eventDates.length)?[...q.eventDates]:[q.eventDate||''];
   pis=(q.pricingItems||[]).map(p=>({n:p.packageName,p:p.unitPrice,t:p.paxType,q:p.customQty||0}));
   acs=(q.additionalCosts||[]).map(c=>({d:c.description||c.d||'',a:c.amount||c.a||0}));
@@ -488,7 +533,7 @@ function editQ(id){
 function editInv(id){
   const inv=DB.invs().find(x=>x.id===id);if(!inv)return;
   editingId=null;editingInvId=id;step=0;
-  wd={fn:inv.fromName||'Urban Roti',fc:inv.fromContact||'+65 6209 5545',cn:inv.customer?.name||'',cc:inv.customer?.contact||'',ve:inv.venue||'',ed:inv.eventDate||'',sl:inv.slot||'',ts:inv.timeStart||'',te:inv.timeEnd||'',pa:inv.pax?.adults||0,pk:inv.pax?.kids||0,wt:inv.terms||TERMS,rm:inv.remarks||'',menuText:inv.menuText||'',discType:inv.discount?.type||'amt',discVal:inv.discount?.value||0,invDate:inv.invoiceDate||new Date().toISOString().split('T')[0]};
+  wd={fn:inv.fromName||'Urban Roti',fc:inv.fromContact||'+65 6209 5545',cn:inv.customer?.name||'',cc:inv.customer?.contact||'',ce:inv.customer?.email||'',ve:inv.venue||'',ed:inv.eventDate||'',sl:inv.slot||'',ts:inv.timeStart||'',te:inv.timeEnd||'',pa:inv.pax?.adults||0,pk:inv.pax?.kids||0,wt:inv.terms||TERMS,rm:inv.remarks||'',menuText:inv.menuText||'',discType:inv.discount?.type||'amt',discVal:inv.discount?.value||0,invDate:inv.invoiceDate||new Date().toISOString().split('T')[0]};
   eds=(inv.eventDates&&inv.eventDates.length)?[...inv.eventDates]:[inv.eventDate||''];
   pis=(inv.pricingItems||[]).map(p=>({n:p.packageName,p:p.unitPrice,t:p.paxType||'adults',q:p.customQty||0}));
   acs=(inv.additionalCosts||[]).map(c=>({d:c.description||c.d||'',a:c.amount||c.a||0}));
@@ -576,6 +621,8 @@ function s0(){
     +'<div class="fld"><label>Customer Contact * <span style="font-weight:600;text-transform:none;font-size:10px">(8 digits)</span></label>'
     +'<input id="cc" type="tel" inputmode="numeric" maxlength="8" value="'+(wd.cc||'')+'" placeholder="91234567" '
     +'oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,8)"></div>'
+    +'<div class="fld"><label>Customer Email <span style="font-weight:600;text-transform:none;font-size:10px">(optional)</span></label>'
+    +'<input id="ce" type="email" inputmode="email" autocapitalize="off" autocomplete="off" value="'+cEsc(wd.ce||'')+'" placeholder="name@example.com"></div>'
     +'<div class="div"></div>'
     +'<div class="fld"><label>Postal Code <span style="font-weight:600;text-transform:none;font-size:10px">(auto-fills address)</span></label>'
     +'<div class="pfx"><div class="pfx-l">SG</div>'
@@ -668,7 +715,7 @@ function s3(){
 
 function saveWD(){
   if(step===0){
-    ['fn','fc','cn','cc','ve'].forEach(function(id){var e=document.getElementById(id);if(e)wd[id]=e.value});
+    ['fn','fc','cn','cc','ce','ve'].forEach(function(id){var e=document.getElementById(id);if(e)wd[id]=e.value});
     wd.ed=eds[0]||''; // primary date (first in array)
     var idEl=document.getElementById('inv-date');if(idEl)wd.invDate=idEl.value;
     var rmEl0=document.getElementById('rm');if(rmEl0)wd.rm=rmEl0.value;
@@ -689,6 +736,8 @@ function validate(){
     if(fc.length!==8){toast('Your contact must be exactly 8 digits','err');document.getElementById('fc')?.focus();return false}
     var cc=(document.getElementById('cc')?.value||'').replace(/\D/g,'');
     if(cc.length!==8){toast('Customer contact must be exactly 8 digits','err');document.getElementById('cc')?.focus();return false}
+    var ceV=(document.getElementById('ce')?.value||'').trim();
+    if(ceV&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ceV)){toast('Please enter a valid email address','err');document.getElementById('ce')?.focus();return false}
     return true;
   }
   if(step===1){
@@ -721,13 +770,13 @@ function generate(){
   if(editingId){
     // [FIX 4] Update existing quote
     const idx=qs.findIndex(x=>x.id===editingId);
-    if(idx>=0){qs[idx]={...qs[idx],from:{name:wd.fn,contact:wd.fc},customer:{name:wd.cn,contact:wd.cc},venue:wd.ve,slot:wd.sl,eventDate:wd.ed,eventDates:eds.filter(Boolean),timeStart:wd.ts,timeEnd:wd.te,pax:{adults:pa,kids:pk},pricingItems:items,menuFile:mf,additionalCosts:acs.map(c=>({description:c.d,amount:c.a})),foodTotal:food,addTotal:add,subtotal:sub,gst,grandTotal:grand,terms:wd.wt||TERMS,remarks:wd.rm||'',menuText:wd.menuText||'',discount:{type:discType,value:discVal},discountAmount:discountAmt};DB.sq(qs);toast(`${editingId} updated!`,'ok');const id=editingId;editingId=null;oSheet(id,'quote');go('history');}
+    if(idx>=0){qs[idx]={...qs[idx],from:{name:wd.fn,contact:wd.fc},customer:{name:wd.cn,contact:wd.cc,email:(wd.ce||'').trim()},venue:wd.ve,slot:wd.sl,eventDate:wd.ed,eventDates:eds.filter(Boolean),timeStart:wd.ts,timeEnd:wd.te,pax:{adults:pa,kids:pk},pricingItems:items,menuFile:mf,additionalCosts:acs.map(c=>({description:c.d,amount:c.a})),foodTotal:food,addTotal:add,subtotal:sub,gst,grandTotal:grand,terms:wd.wt||TERMS,remarks:wd.rm||'',menuText:wd.menuText||'',discount:{type:discType,value:discVal},discountAmount:discountAmt};DB.sq(qs);toast(`${editingId} updated!`,'ok');const id=editingId;editingId=null;oSheet(id,'quote');go('history');}
   } else if(editingInvId){
     // Update existing invoice (keeps advancePayment, status, id; invoice date is editable)
     const invs=DB.invs(),invIdx=invs.findIndex(x=>x.id===editingInvId);
     if(invIdx>=0){
       const orig=invs[invIdx];
-      invs[invIdx]={...orig,invoiceDate:wd.invDate||orig.invoiceDate,customer:{name:wd.cn,contact:wd.cc},venue:wd.ve,slot:wd.sl,eventDate:wd.ed,eventDates:eds.filter(Boolean),timeStart:wd.ts,timeEnd:wd.te,pax:{adults:pa,kids:pk},pricingItems:items,menuFile:mf,additionalCosts:acs.map(c=>({description:c.d,amount:c.a})),foodTotal:food,addTotal:add,subtotal:sub,gst,grandTotal:grand,terms:wd.wt||TERMS,remarks:wd.rm||'',menuText:wd.menuText||'',discount:{type:discType,value:discVal},discountAmount:discountAmt,fromName:wd.fn,fromContact:wd.fc};
+      invs[invIdx]={...orig,invoiceDate:wd.invDate||orig.invoiceDate,customer:{name:wd.cn,contact:wd.cc,email:(wd.ce||'').trim()},venue:wd.ve,slot:wd.sl,eventDate:wd.ed,eventDates:eds.filter(Boolean),timeStart:wd.ts,timeEnd:wd.te,pax:{adults:pa,kids:pk},pricingItems:items,menuFile:mf,additionalCosts:acs.map(c=>({description:c.d,amount:c.a})),foodTotal:food,addTotal:add,subtotal:sub,gst,grandTotal:grand,terms:wd.wt||TERMS,remarks:wd.rm||'',menuText:wd.menuText||'',discount:{type:discType,value:discVal},discountAmount:discountAmt,fromName:wd.fn,fromContact:wd.fc};
       DB.si(invs);toast(`Invoice ${editingInvId} updated! ✅`,'ok');
       const invId=editingInvId;editingInvId=null;oSheet(invId,'invoice');go('history');
     }
@@ -777,7 +826,7 @@ function oSheet(id,type){
   document.getElementById('sh-foot').innerHTML=a;
   document.getElementById('bd').classList.add('on');document.getElementById('sheet').classList.add('on');
 }
-function cSheet(){document.getElementById('bd').classList.remove('on');document.getElementById('sheet').classList.remove('on')}
+function cSheet(){document.getElementById('bd').classList.remove('on');document.getElementById('sheet').classList.remove('on');if(document.getElementById('s-customers').classList.contains('active'))refreshCust()}
 
 // Save advance payment to invoice
 function saveAdvPay(id){
@@ -809,7 +858,7 @@ function docMini(obj,type){const isQ=type==='quote';const items=obj.pricingItems
   const grandAmt=obj.grandTotal||0;
   const balDiff=grandAmt-advPay;
   const advRows=!isQ&&advPay>0?`<div class="dmtr" style="background:#2A7A50"><span>Less: Advance</span><span>-S$ ${advPay.toFixed(2)}</span></div>`+(balDiff>0?`<div class="dmtr" style="background:#1A6BBF;font-weight:700"><span>BALANCE DUE</span><span>S$ ${balDiff.toFixed(2)}</span></div>`:`<div class="dmtr" style="background:#C0392B;font-weight:700"><span>${balDiff<0?'REFUND AMOUNT':'FULLY PAID'}</span><span>${balDiff<0?'S$ '+Math.abs(balDiff).toFixed(2):'✅'}</span></div>`):'';
-  return`<div class="dm" id="dm-r"><div class="dmh"><div class="dmlo"><div class="dmlb"><img src="${LOGO_B64}" style="width:100%;height:100%;object-fit:contain;padding:2px"></div><div><div class="dmco">Urban Roti</div><div class="dmcs">Catering & Events</div><div class="dmci">📞 +65 6209 5545 · urbanroti.com.sg</div></div></div><div><div class="dmty">${isQ?'Quotation':'Invoice'}</div><div class="dmnu">${obj.id}</div><div class="dmnu">${isQ?fdl(obj.createdAt?.split('T')[0]):fdl(obj.invoiceDate)}</div></div></div><div class="dmpar"><div class="dmp"><div class="dmpl">${isQ?'From':'Billed By'}</div><div class="dmpn">${isQ?obj.from?.name:'Urban Roti'}</div><div class="dmpi">${isQ?obj.from?.contact||'':''}</div></div><div class="dmp to"><div class="dmpl">${isQ?'Quotation For':'Billed To'}</div><div class="dmpn">${obj.customer?.name}</div><div class="dmpi">📱 ${obj.customer?.contact||''}</div></div></div><div class="dmev"><div><div class="dmel">Event Date${eventDates.filter(Boolean).length>1?'s':''}</div><div class="dmev2 hi">${dateDisplay}</div></div><div><div class="dmel">Slot</div><div class="dmev2">${obj.slot||'—'}</div></div><div><div class="dmel">Time</div><div class="dmev2">${tr2}</div></div><div><div class="dmel">Venue</div><div class="dmev2" style="font-size:9px">${obj.venue||'—'}</div></div></div><table class="dmt"><thead><tr><th>Package</th><th>Pax</th><th>Unit</th><th>Amount</th></tr></thead><tbody>${rows}${arows}</tbody></table><div style="display:flex;justify-content:flex-end;margin-bottom:8px"><div class="dmto"><div class="dmtr"><span>Food Cost</span><span>S$ ${(obj.foodTotal||0).toFixed(2)}</span></div>${(obj.addTotal||0)>0?`<div class="dmtr"><span>Additional</span><span>S$ ${obj.addTotal.toFixed(2)}</span></div>`:''}${(obj.discountAmount||0)>0?`<div class="dmtr" style="background:#EAF7EE"><span style="color:#2A7A50">Discount${obj.discount?.type==='pct'?' ('+obj.discount.value+'%)':''}  </span><span style="color:#2A7A50">-S$ ${(obj.discountAmount||0).toFixed(2)}</span></div>`:''}<div class="dmtr"><span>Subtotal</span><span>S$ ${(obj.subtotal||0).toFixed(2)}</span></div><div class="dmtr"><span>GST 9%</span><span>S$ ${(obj.gst||0).toFixed(2)}</span></div><div class="dmtr gd"><span>TOTAL</span><span>S$ ${(obj.grandTotal||0).toFixed(2)}</span></div>${advRows}${!isQ&&(obj.status==='paid'||(obj.advancePayment||0)>=(obj.grandTotal||0))?'<div class="dmtr" style="background:#2A7A50;font-size:11px;letter-spacing:1px;text-align:center;justify-content:center"><span>✅ FULLY PAID</span></div>':''}</div></div><div class="dmw"><b>Amount in Words:</b> ${words(obj.grandTotal||0)}</div><div class="dmte"><div class="dmte-t">Terms & Conditions</div><ol>${tl}</ol></div></div>`}
+  return`<div class="dm" id="dm-r"><div class="dmh"><div class="dmlo"><div class="dmlb"><img src="${LOGO_B64}" style="width:100%;height:100%;object-fit:contain;padding:2px"></div><div><div class="dmco">Urban Roti</div><div class="dmcs">Catering & Events</div><div class="dmci">📞 +65 6209 5545 · urbanroti.com.sg</div></div></div><div><div class="dmty">${isQ?'Quotation':'Invoice'}</div><div class="dmnu">${obj.id}</div><div class="dmnu">${isQ?fdl(obj.createdAt?.split('T')[0]):fdl(obj.invoiceDate)}</div></div></div><div class="dmpar"><div class="dmp"><div class="dmpl">${isQ?'From':'Billed By'}</div><div class="dmpn">${isQ?obj.from?.name:'Urban Roti'}</div><div class="dmpi">${isQ?obj.from?.contact||'':''}</div></div><div class="dmp to"><div class="dmpl">${isQ?'Quotation For':'Billed To'}</div><div class="dmpn">${obj.customer?.name}</div><div class="dmpi">📱 ${obj.customer?.contact||''}</div>${obj.customer?.email?'<div class="dmpi">✉️ '+cEsc(obj.customer.email)+'</div>':''}</div></div><div class="dmev"><div><div class="dmel">Event Date${eventDates.filter(Boolean).length>1?'s':''}</div><div class="dmev2 hi">${dateDisplay}</div></div><div><div class="dmel">Slot</div><div class="dmev2">${obj.slot||'—'}</div></div><div><div class="dmel">Time</div><div class="dmev2">${tr2}</div></div><div><div class="dmel">Venue</div><div class="dmev2" style="font-size:9px">${obj.venue||'—'}</div></div></div><table class="dmt"><thead><tr><th>Package</th><th>Pax</th><th>Unit</th><th>Amount</th></tr></thead><tbody>${rows}${arows}</tbody></table><div style="display:flex;justify-content:flex-end;margin-bottom:8px"><div class="dmto"><div class="dmtr"><span>Food Cost</span><span>S$ ${(obj.foodTotal||0).toFixed(2)}</span></div>${(obj.addTotal||0)>0?`<div class="dmtr"><span>Additional</span><span>S$ ${obj.addTotal.toFixed(2)}</span></div>`:''}${(obj.discountAmount||0)>0?`<div class="dmtr" style="background:#EAF7EE"><span style="color:#2A7A50">Discount${obj.discount?.type==='pct'?' ('+obj.discount.value+'%)':''}  </span><span style="color:#2A7A50">-S$ ${(obj.discountAmount||0).toFixed(2)}</span></div>`:''}<div class="dmtr"><span>Subtotal</span><span>S$ ${(obj.subtotal||0).toFixed(2)}</span></div><div class="dmtr"><span>GST 9%</span><span>S$ ${(obj.gst||0).toFixed(2)}</span></div><div class="dmtr gd"><span>TOTAL</span><span>S$ ${(obj.grandTotal||0).toFixed(2)}</span></div>${advRows}${!isQ&&(obj.status==='paid'||(obj.advancePayment||0)>=(obj.grandTotal||0))?'<div class="dmtr" style="background:#2A7A50;font-size:11px;letter-spacing:1px;text-align:center;justify-content:center"><span>✅ FULLY PAID</span></div>':''}</div></div><div class="dmw"><b>Amount in Words:</b> ${words(obj.grandTotal||0)}</div><div class="dmte"><div class="dmte-t">Terms & Conditions</div><ol>${tl}</ol></div></div>`}
 
 // ── A4 DOCUMENT HTML GENERATOR (Grouped pricing, orange accents, larger fonts) ──
 function genA4HTML(obj,type){
@@ -940,7 +989,9 @@ function genA4HTML(obj,type){
   +'<div style="background:#FDF6EE;border-left:4px solid #D4922A;padding:13px 16px;border-radius:4px">'
   +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#D4922A;margin-bottom:6px">'+toLabel+'</div>'
   +'<div style="font-size:17px;font-weight:700">'+(obj.customer?.name||'')+'</div>'
-  +'<div style="font-size:12px;color:#8A6540;font-weight:700;margin-top:3px">'+(obj.customer?.contact||'')+'</div></div></div>'
+  +'<div style="font-size:12px;color:#8A6540;font-weight:700;margin-top:3px">'+(obj.customer?.contact||'')+'</div>'
+  +(obj.customer?.email?'<div style="font-size:12px;color:#8A6540;font-weight:700;margin-top:2px">'+cEsc(obj.customer.email)+'</div>':'')
+  +'</div></div>'
   // Event strip, pax, content — all in pdf-body
   +'<div style="background:#C4552A;border-radius:8px;padding:16px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">'
   +'<div><div style="font-size:10px;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.5px">Event Date'+(eventDatesArr.filter(Boolean).length>1?'s':'')+'</div><div style="font-size:15px;font-weight:700;color:#fff;margin-top:4px;line-height:1.4">'+eventDatesDisplay+'</div></div>'
@@ -1371,7 +1422,7 @@ async function waWithPDF(type,id){
   toast('PDF saved — attaching in WhatsApp…','ok');
 }
 
-function mail(type,id){const o=type==='quote'?DB.quotes().find(x=>x.id===id):DB.invs().find(x=>x.id===id);if(!o)return;const sub=type==='quote'?`Urban Roti Quotation ${o.id}`:`Urban Roti Invoice ${o.id}`;const body=type==='quote'?`Dear ${o.customer.name},\n\nQuotation ${o.id} for catering on ${fdl(o.eventDate)}.\nTime: ${t12(o.timeStart)||''} · Venue: ${o.venue}\nTotal: S$ ${(o.grandTotal||0).toFixed(2)} incl. 9% GST\n\nKindly reply to confirm.\n\nUrban Roti Catering\nwww.urbanroti.com.sg`:`Dear ${o.customer.name},\n\nInvoice ${o.id} for event on ${fdl(o.eventDate)}.\nTotal Due: S$ ${(o.grandTotal||0).toFixed(2)} incl. 9% GST. Ref: ${o.id}\n\nUrban Roti Catering`;window.location.href=`mailto:?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`}
+function mail(type,id){const o=type==='quote'?DB.quotes().find(x=>x.id===id):DB.invs().find(x=>x.id===id);if(!o)return;const sub=type==='quote'?`Urban Roti Quotation ${o.id}`:`Urban Roti Invoice ${o.id}`;const body=type==='quote'?`Dear ${o.customer.name},\n\nQuotation ${o.id} for catering on ${fdl(o.eventDate)}.\nTime: ${t12(o.timeStart)||''} · Venue: ${o.venue}\nTotal: S$ ${(o.grandTotal||0).toFixed(2)} incl. 9% GST\n\nKindly reply to confirm.\n\nUrban Roti Catering\nwww.urbanroti.com.sg`:`Dear ${o.customer.name},\n\nInvoice ${o.id} for event on ${fdl(o.eventDate)}.\nTotal Due: S$ ${(o.grandTotal||0).toFixed(2)} incl. 9% GST. Ref: ${o.id}\n\nUrban Roti Catering`;window.location.href=`mailto:${o.customer&&o.customer.email?o.customer.email:''}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`}
 
 // ── MANUAL INVOICE NUMBER ──
 function promptMkInv(qid){
@@ -1439,7 +1490,7 @@ function confirmMkQuote(){
   const discountAmt=discType==='pct'?Math.round(baseAmt*discVal/100*100)/100:Math.min(discVal,baseAmt);
   const sub=baseAmt-discountAmt,gst=sub*.09,grand=sub+gst;
   const qs=DB.quotes();
-  const q={id:customId,createdAt:new Date().toISOString(),status:'draft',from:{name:wd.fn,contact:wd.fc},customer:{name:wd.cn,contact:wd.cc},venue:wd.ve,slot:wd.sl,eventDate:wd.ed,eventDates:eds.filter(Boolean),timeStart:wd.ts,timeEnd:wd.te,pax:{adults:pa,kids:pk},pricingItems:items,menuFile:mf,additionalCosts:acs.map(function(c){return{description:c.d,amount:c.a};}),foodTotal:food,addTotal:add,subtotal:sub,gst:gst,grandTotal:grand,terms:wd.wt||TERMS,remarks:wd.rm||'',menuText:wd.menuText||'',discount:{type:discType,value:discVal},discountAmount:discountAmt};
+  const q={id:customId,createdAt:new Date().toISOString(),status:'draft',from:{name:wd.fn,contact:wd.fc},customer:{name:wd.cn,contact:wd.cc,email:(wd.ce||'').trim()},venue:wd.ve,slot:wd.sl,eventDate:wd.ed,eventDates:eds.filter(Boolean),timeStart:wd.ts,timeEnd:wd.te,pax:{adults:pa,kids:pk},pricingItems:items,menuFile:mf,additionalCosts:acs.map(function(c){return{description:c.d,amount:c.a};}),foodTotal:food,addTotal:add,subtotal:sub,gst:gst,grandTotal:grand,terms:wd.wt||TERMS,remarks:wd.rm||'',menuText:wd.menuText||'',discount:{type:discType,value:discVal},discountAmount:discountAmt};
   qs.unshift(q);DB.sq(qs);toast(q.id+' generated!','ok');oSheet(q.id,'quote');go('home');
 }
 
@@ -1455,6 +1506,108 @@ var hTab='q';
 function htab(t){hTab=t;['q','i'].forEach(x=>{const e=document.getElementById('ht-'+x);if(e)e.className='ht'+(x===t?' on':'')});renderHist()}
 
 // History render — View, Edit, Share, Generate Invoice (all string concat, no nested templates)
+// ═══════════ CUSTOMERS TAB ═══════════
+var custOpenKey=null;
+function cEsc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+// A customer is identified by phone number (always captured); falls back to name.
+function custKey(c){var ph=((c&&c.contact)||'').replace(/\D/g,'');return ph?('p'+ph):('n'+((c&&c.name)||'').trim().toLowerCase())}
+function custEvDate(o){return (o.eventDates&&o.eventDates[0])||o.eventDate||''}
+function custEvDates(o){return o.eventDates&&o.eventDates.length>1?o.eventDates.map(fd).join(' & '):fd(o.eventDate)}
+function custBuild(){
+  var qs=DB.quotes(),is=DB.invs(),map={},used={},invByQ={};
+  is.forEach(function(i){if(i.quotationId){var o=invByQ[i.quotationId];if(!o||(i.invoiceDate||'')>(o.invoiceDate||''))invByQ[i.quotationId]=i}});
+  function add(c,ev,stamp){
+    if(!c||(!(c.name||'').trim()&&!(c.contact||'').trim()))return;
+    var k=custKey(c),m=map[k];
+    if(!m)m=map[k]={key:k,name:'',contact:'',email:'',nameStamp:'',emailStamp:'',events:[],invoiced:0,due:0};
+    if(!m.name||stamp>=m.nameStamp){m.nameStamp=stamp;if(c.name)m.name=c.name;if(c.contact)m.contact=c.contact}
+    if(c.email&&(!m.email||stamp>=m.emailStamp)){m.email=c.email;m.emailStamp=stamp}
+    m.events.push(ev);
+    if(ev.invoice){var g=ev.invoice.grandTotal||0;m.invoiced+=g;if(ev.invoice.status!=='paid')m.due+=Math.max(0,g-(ev.invoice.advancePayment||0))}
+  }
+  // each quotation is one catering event; its invoice (if any) is attached to it
+  qs.forEach(function(q){
+    var inv=invByQ[q.id]||null;if(inv)used[inv.id]=1;
+    var base=(inv&&inv.customer)||q.customer||{};
+    var c={name:base.name,contact:base.contact,email:base.email||(q.customer&&q.customer.email)||''};
+    add(c,{quote:q,invoice:inv,date:custEvDate(inv||q),stamp:q.createdAt||''},(inv&&inv.invoiceDate)||q.createdAt||'');
+  });
+  // invoices whose quotation no longer exists still count as events
+  is.forEach(function(i){
+    if(used[i.id])return;
+    add(i.customer,{quote:null,invoice:i,date:custEvDate(i),stamp:i.invoiceDate||''},i.invoiceDate||'');
+  });
+  return Object.keys(map).map(function(k){
+    var m=map[k];
+    m.events.sort(function(a,b){return (b.date||b.stamp||'').localeCompare(a.date||a.stamp||'')});
+    return m;
+  }).sort(function(a,b){return (a.name||'').toLowerCase().localeCompare((b.name||'').toLowerCase())});
+}
+function showCustList(){
+  document.getElementById('cust-list-view').style.display='block';
+  document.getElementById('cust-detail-view').style.display='none';
+}
+function renderCustomers(){
+  custOpenKey=null;showCustList();
+  var s=(document.getElementById('csrch')?.value||'').toLowerCase().trim();
+  var all=custBuild();
+  var list=all.filter(function(c){return !s||(c.name||'').toLowerCase().includes(s)||(c.contact||'').includes(s)||(c.email||'').toLowerCase().includes(s)});
+  document.getElementById('cust-count').textContent=list.length+(s?' of '+all.length:'')+' customer'+(all.length===1?'':'s');
+  var el=document.getElementById('cust-list');
+  if(!all.length){el.innerHTML='<div class="empty"><div class="empty-ic">👥</div><div class="empty-tx">No customers yet.<br>They appear here as soon as you create a quotation.</div></div>';return}
+  if(!list.length){el.innerHTML='<div class="empty"><div class="empty-ic">🔍</div><div class="empty-tx">No customer matches your search.</div></div>';return}
+  el.innerHTML=list.map(function(c){
+    var n=c.events.length;
+    return '<div class="cu" data-k="'+cEsc(c.key)+'" onclick="openCustomer(this.dataset.k)">'
+      +'<div class="cu-av">'+cEsc((c.name||'?').trim().charAt(0).toUpperCase())+'</div>'
+      +'<div class="cu-main"><div class="cu-name">'+cEsc(c.name||'—')+'</div>'
+      +'<div class="cu-line">📱 '+cEsc(c.contact||'—')+'</div>'
+      +(c.email?'<div class="cu-line">✉️ '+cEsc(c.email)+'</div>':'')+'</div>'
+      +'<div class="cu-side"><div class="cu-n">'+n+' event'+(n===1?'':'s')+'</div><div class="cu-amt">S$ '+c.invoiced.toFixed(2)+'</div></div></div>';
+  }).join('');
+}
+function openCustomer(key){custOpenKey=key;renderCustDetail();var sc=document.getElementById('s-customers');if(sc)sc.scrollTop=0}
+function closeCustomer(){renderCustomers()}
+function refreshCust(){if(custOpenKey)renderCustDetail();else renderCustomers()}
+function renderCustDetail(){
+  var c=custBuild().find(function(x){return x.key===custOpenKey});
+  if(!c){renderCustomers();return}
+  document.getElementById('cust-list-view').style.display='none';
+  var dv=document.getElementById('cust-detail-view');dv.style.display='block';
+  var tel=(c.contact||'').replace(/\D/g,'');
+  var h='<button class="cd-back" onclick="closeCustomer()">← All customers</button>'
+    +'<div class="cd-card"><div class="cu-av big">'+cEsc((c.name||'?').trim().charAt(0).toUpperCase())+'</div><div style="min-width:0">'
+    +'<div class="cd-name">'+cEsc(c.name||'—')+'</div>'
+    +(tel?'<a href="tel:'+cEsc(tel)+'">📱 '+cEsc(c.contact)+'</a>':'')
+    +(c.email?'<a href="mailto:'+cEsc(c.email)+'">✉️ '+cEsc(c.email)+'</a>':'<span class="cd-nomail">✉️ No email on file</span>')
+    +'</div></div>'
+    +'<div class="cd-stats"><div><b>'+c.events.length+'</b><span>Events</span></div>'
+    +'<div><b>S$ '+c.invoiced.toFixed(2)+'</b><span>Invoiced</span></div>'
+    +'<div><b style="color:'+(c.due>0?'#C0392B':'#2A7A50')+'">S$ '+c.due.toFixed(2)+'</b><span>Balance due</span></div></div>'
+    +'<div class="cd-sec">Catering history</div>';
+  h+=c.events.map(function(ev){
+    var o=ev.invoice||ev.quote;
+    var pax=(o.pax?.adults||0)+(o.pax?.kids||0);
+    var meta=[o.slot||'',o.timeStart?t12(o.timeStart):'',pax?pax+' pax':'',o.venue||''].filter(Boolean).map(cEsc).join(' · ');
+    var r='<div class="ev"><div class="ev-t"><div class="ev-d">📅 '+cEsc(custEvDates(o))+'</div>'+(meta?'<div class="ev-s">'+meta+'</div>':'')+'</div>';
+    if(ev.quote){
+      var q=ev.quote;
+      r+='<div class="ev-r" data-id="'+cEsc(q.id)+'" onclick="oSheet(this.dataset.id,\'quote\')"><div><div class="ev-id">📋 '+cEsc(q.id)+'</div><div class="ev-s">Quotation'+(ev.invoice?'':' · '+cEsc(q.status||'draft'))+'</div></div>'
+        +'<div class="ev-am">S$ '+(q.grandTotal||0).toFixed(2)+'</div></div>';
+    }
+    if(ev.invoice){
+      var i=ev.invoice,g=i.grandTotal||0,adv=i.advancePayment||0;
+      var paid=i.status==='paid'||adv>=g;
+      var st=paid?'<span class="badge bp">Paid</span>':'<span class="badge bc">Due S$ '+Math.max(0,g-adv).toFixed(2)+'</span>';
+      r+='<div class="ev-r" data-id="'+cEsc(i.id)+'" onclick="oSheet(this.dataset.id,\'invoice\')"><div><div class="ev-id">🧾 '+cEsc(i.id)+'</div><div style="margin-top:4px">'+st+'</div></div>'
+        +'<div><div class="ev-am">S$ '+g.toFixed(2)+'</div>'
+        +'<button class="ev-pdf" data-id="'+cEsc(i.id)+'" onclick="event.stopPropagation();xPDF(this.dataset.id,\'invoice\')">📄 PDF</button></div></div>';
+    }
+    return r+'</div>';
+  }).join('');
+  dv.innerHTML=h;
+}
+
 function renderHist(){
   var s=(document.getElementById('hsrch')?.value||'').toLowerCase();
   var c=document.getElementById('hist-list');
@@ -1515,7 +1668,9 @@ function shareQ(id,type){
     '<div style="background:var(--cream2);border-radius:12px;padding:14px;margin-bottom:10px">'
     +'<div style="font-size:10px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Sharing with</div>'
     +'<div style="font-size:16px;font-weight:800">'+(obj.customer?.name||'')+'</div>'
-    +'<div style="font-size:13px;color:var(--muted);margin-top:2px">'+(obj.customer?.contact||'')+'</div></div>'
+    +'<div style="font-size:13px;color:var(--muted);margin-top:2px">'+(obj.customer?.contact||'')+'</div>'
+    +(obj.customer?.email?'<div style="font-size:13px;color:var(--muted);margin-top:2px">'+cEsc(obj.customer.email)+'</div>':'')
+    +'</div>'
     +'<div style="background:var(--cream2);border-radius:10px;padding:12px;font-size:12px;color:var(--ink);line-height:1.7">'
     +'<strong>'+obj.id+'</strong><br>'
     +'📅 '+(obj.eventDates&&obj.eventDates.length>1?obj.eventDates.map(fdl).join(' & '):fdl(obj.eventDate))+(obj.slot?' · '+obj.slot:'')+'<br>'
