@@ -496,8 +496,34 @@ const DB={
     // Delete items removed from cur
     prevIds.forEach(id=>{if(!curIds.has(id))window.urFB.deleteOne(uid,col,id);});
   },
-  nq(){const q=DB.quotes(),y=new Date().getFullYear();return`Q-${y}-${String(q.filter(x=>x.id.includes(y)).length+1).padStart(4,'0')}`},
-  ni(){const i=DB.invs(),y=new Date().getFullYear();return`INV-${y}-${String(i.filter(x=>x.id.includes(y)).length+1).padStart(4,'0')}`}
+  _nqDefault(){const q=DB.quotes(),y=new Date().getFullYear();return`Q-${y}-${String(q.filter(x=>x.id.includes(y)).length+1).padStart(4,'0')}`},
+  _niDefault(){const i=DB.invs(),y=new Date().getFullYear();return`INV-${y}-${String(i.filter(x=>x.id.includes(y)).length+1).padStart(4,'0')}`},
+  // Next number continues from the LAST number created (even if it was typed in by hand):
+  //   URC-15 -> URC-16 · Q-2026-0009 -> Q-2026-0010 · QT-009 -> QT-010 · Rao-July-1 -> Rao-July-2
+  // Skips any number already in use. Falls back to the standard format when there is nothing to continue from.
+  _next(list,fallback){
+    list=list||[];
+    var last=null;
+    list.forEach(function(x){
+      if(!x||!x.id)return;
+      var s=x.createdAt||x.invoiceDate||'';
+      if(!last||s>(last.createdAt||last.invoiceDate||''))last=x; // ties keep the earlier array slot = newest
+    });
+    if(!last)return fallback();
+    var m=/^(.*?)(\d+)(\D*)$/.exec(String(last.id));
+    if(!m||m[2].length>15)return fallback();
+    var used={};list.forEach(function(x){if(x&&x.id)used[x.id]=1});
+    var n=parseInt(m[2],10),w=m[2].length;
+    for(var k=0;k<100000;k++){
+      n++;
+      var s2=String(n);while(s2.length<w)s2='0'+s2;
+      var cand=m[1]+s2+m[3];
+      if(!used[cand])return cand;
+    }
+    return fallback();
+  },
+  nq(){return DB._next(DB.quotes(),DB._nqDefault)},
+  ni(){return DB._next(DB.invs(),DB._niDefault)}
 };
 const TERMS=`1. Menu rates are applicable for minimum 30 pax.\n2. Order once confirmed will not be cancelled (No advance will be refunded in case of any cancellation).\n3. 80% advance for order confirmation and balance on the event day.\n4. Above rates are subject to change without notice.\n5. Taxes as applicable.\n6. Setup includes transport cost, buffet setup, disposables.\n7. Crockery if required, additional cost of $4 per person will be applicable.\n8. Calculation will be as per plates or headcounts, whichever is higher.\n9. Live Tandoor will be charged $250 extra.`;
 
@@ -1445,9 +1471,10 @@ function promptMkInv(qid){
 function confirmMkInv(qid){
   var inp=document.getElementById('inv-num-input');
   var customId=inp?inp.value.trim():'';
+  if(!customId){toast('Please enter an invoice number','err');return;}
+  if(DB.invs().some(function(x){return x.id===customId;})){toast('Invoice number "'+customId+'" already exists','err');return;}
   var modal=document.getElementById('inv-num-modal');
   if(modal)modal.remove();
-  if(!customId){toast('Please enter an invoice number','err');return;}
   mkInv(qid,customId);
 }
 
@@ -1494,7 +1521,7 @@ function confirmMkQuote(){
   qs.unshift(q);DB.sq(qs);toast(q.id+' generated!','ok');oSheet(q.id,'quote');go('home');
 }
 
-function mkInv(qid,customId){const qs=DB.quotes(),qi=qs.findIndex(x=>x.id===qid);if(qi<0)return;qs[qi].status='confirmed';DB.sq(qs);const q=qs[qi];const invId=customId||DB.ni();const inv={id:invId,invoiceDate:new Date().toISOString().split('T')[0],quotationId:q.id,status:'issued',customer:{...q.customer},eventDate:q.eventDate,eventDates:q.eventDates||[q.eventDate],slot:q.slot,timeStart:q.timeStart,timeEnd:q.timeEnd,pax:{...q.pax},pricingItems:q.pricingItems,additionalCosts:q.additionalCosts||[],foodTotal:q.foodTotal,addTotal:q.addTotal,subtotal:q.subtotal,gst:q.gst,grandTotal:q.grandTotal,terms:q.terms,remarks:q.remarks||'',menuText:q.menuText||'',discount:q.discount||null,discountAmount:q.discountAmount||0,advancePayment:0,fromName:q.from?.name,fromContact:q.from?.contact};const is=DB.invs();is.unshift(inv);DB.si(is);toast(`Invoice ${invId} created!`,'ok');setTimeout(()=>oSheet(invId,'invoice'),400);dash();renderHome()}
+function mkInv(qid,customId){const qs=DB.quotes(),qi=qs.findIndex(x=>x.id===qid);if(qi<0)return;qs[qi].status='confirmed';DB.sq(qs);const q=qs[qi];const invId=customId||DB.ni();const inv={id:invId,createdAt:new Date().toISOString(),invoiceDate:new Date().toISOString().split('T')[0],quotationId:q.id,status:'issued',customer:{...q.customer},eventDate:q.eventDate,eventDates:q.eventDates||[q.eventDate],slot:q.slot,timeStart:q.timeStart,timeEnd:q.timeEnd,pax:{...q.pax},pricingItems:q.pricingItems,additionalCosts:q.additionalCosts||[],foodTotal:q.foodTotal,addTotal:q.addTotal,subtotal:q.subtotal,gst:q.gst,grandTotal:q.grandTotal,terms:q.terms,remarks:q.remarks||'',menuText:q.menuText||'',discount:q.discount||null,discountAmount:q.discountAmount||0,advancePayment:0,fromName:q.from?.name,fromContact:q.from?.contact};const is=DB.invs();is.unshift(inv);DB.si(is);toast(`Invoice ${invId} created!`,'ok');setTimeout(()=>oSheet(invId,'invoice'),400);dash();renderHome()}
 function mkPaid(id){const is=DB.invs(),idx=is.findIndex(x=>x.id===id);if(idx>=0){is[idx].status='paid';DB.si(is);toast('Marked as PAID 🎉','ok');renderHist()}}
 
 // ── [FIX 4] DELETE FUNCTIONS ──
