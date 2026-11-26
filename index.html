@@ -223,41 +223,6 @@ body{font-family:'Nunito',sans-serif;color:var(--ink);font-size:15px;line-height
 .logout-btn{background:none;border:none;color:#fff;font-size:18px;cursor:pointer;padding:5px 6px;margin-left:4px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:background .15s}
 .logout-btn:hover{background:rgba(255,255,255,.08)}
 .logout-btn:active{transform:scale(.94)}
-/* ── CUSTOMERS TAB ── */
-#nav .fab-slot{flex:0 0 76px}
-#n-customers{flex:2}
-.cu-h{display:flex;justify-content:space-between;align-items:baseline;padding:16px 16px 0}
-.cu-h h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--ink)}
-.cu-h span{font-size:12px;font-weight:800;color:var(--muted)}
-.cu{margin:0 14px 10px;background:#fff;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--sh);padding:13px 14px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:.15s}
-.cu:active{transform:scale(.99)}
-.cu-av{width:42px;height:42px;border-radius:50%;background:rgba(196,85,42,.1);color:var(--clay);font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cu-av.big{width:54px;height:54px;font-size:22px}
-.cu-main{flex:1;min-width:0}
-.cu-name{font-size:16px;font-weight:800;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cu-line{font-size:12px;color:var(--muted);margin-top:2px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cu-side{text-align:right;flex-shrink:0}
-.cu-n{font-size:12px;font-weight:900;color:var(--clay)}
-.cu-amt{font-size:11px;color:var(--muted);font-weight:700;margin-top:2px}
-.cd-back{margin:14px 14px 0;border:none;background:none;color:var(--clay);font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;padding:4px 0}
-.cd-card{margin:10px 14px 12px;background:#fff;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--sh);padding:16px;display:flex;gap:14px;align-items:center}
-.cd-name{font-size:19px;font-weight:900;color:var(--ink);word-break:break-word}
-.cd-card a,.cd-nomail{display:block;font-size:13px;font-weight:700;margin-top:3px;color:var(--clay);text-decoration:none;word-break:break-all}
-.cd-nomail{color:var(--muted);font-weight:600}
-.cd-stats{margin:0 14px 14px;display:flex;gap:8px}
-.cd-stats div{flex:1;background:#fff;border:1px solid var(--border);border-radius:var(--r2);padding:10px 6px;text-align:center}
-.cd-stats b{display:block;font-size:15px;font-weight:900;color:var(--ink)}
-.cd-stats span{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
-.cd-sec{margin:0 16px 8px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
-.ev{margin:0 14px 12px;background:#fff;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden}
-.ev-t{padding:12px 15px;background:var(--cream2)}
-.ev-d{font-size:14px;font-weight:900;color:var(--ink)}
-.ev-s{font-size:12px;color:var(--muted);margin-top:2px;font-weight:600}
-.ev-r{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 15px;cursor:pointer}
-.ev-r+.ev-r{border-top:1px dashed var(--border)}
-.ev-id{font-size:13px;font-weight:900;color:var(--clay)}
-.ev-am{font-size:14px;font-weight:900;color:var(--ink);text-align:right}
-.ev-pdf{margin-top:5px;border:none;background:var(--clay);color:#fff;border-radius:30px;padding:5px 12px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;cursor:pointer}
 .user-chip{background:rgba(255,255,255,.18);color:#fff;font-size:10px;font-weight:800;padding:4px 9px;border-radius:20px;letter-spacing:.3px}
 </style>
 </head>
@@ -375,6 +340,7 @@ window.dispatchEvent(new Event('urFBReady'));
     <div style="display:flex;align-items:center">
       <span class="user-chip" id="user-chip" style="display:none"></span>
       <button class="hdr-ic" onclick="go('history')">📋</button>
+      <button class="logout-btn" id="bk-btn" onclick="urBackupMenu()" title="Backup: Export / Import" style="display:none;font-size:17px">💾</button>
       <button class="logout-btn" id="sync-btn" onclick="urSyncNow()" title="Sync to cloud" style="display:none"><img src="data:image/png;base64,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" alt="Sync" style="width:21px;height:21px;vertical-align:middle;display:block"></button>
       <button class="logout-btn" id="logout-btn" onclick="urLogout()" title="Sign out" style="display:none"><img src="data:image/png;base64,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" alt="Sign out" style="width:22px;height:22px;vertical-align:middle;display:block"></button>
     </div>
@@ -419,21 +385,11 @@ window.dispatchEvent(new Event('urFBReady'));
       <div id="hist-list"></div>
       <div class="pb"></div>
     </div>
-    <div class="screen" id="s-customers">
-      <div id="cust-list-view">
-        <div class="cu-h"><h3>👥 Customers</h3><span id="cust-count"></span></div>
-        <div class="sw"><input class="sr" id="csrch" placeholder="Search name, phone or email…" oninput="renderCustomers()"></div>
-        <div id="cust-list"></div>
-      </div>
-      <div id="cust-detail-view" style="display:none"></div>
-      <div class="pb"></div>
-    </div>
   </div>
   <div id="nav">
     <button class="ni on" id="n-home" onclick="go('home')"><div class="ni-bar"></div><div class="ic">🏠</div><div class="lb">Home</div></button>
-    <button class="ni" id="n-history" onclick="go('history')"><div class="ni-bar"></div><div class="ic">📋</div><div class="lb">Records</div></button>
     <div class="fab-slot"><button class="fab" onclick="newQ()">✦</button></div>
-    <button class="ni" id="n-customers" onclick="go('customers')"><div class="ni-bar"></div><div class="ic">👥</div><div class="lb">Customers</div></button>
+    <button class="ni" id="n-history" onclick="go('history')"><div class="ni-bar"></div><div class="ic">📋</div><div class="lb">Records</div></button>
   </div>
 </div>
 <div class="bd2" id="bd" onclick="cSheet()"></div>
@@ -496,34 +452,8 @@ const DB={
     // Delete items removed from cur
     prevIds.forEach(id=>{if(!curIds.has(id))window.urFB.deleteOne(uid,col,id);});
   },
-  _nqDefault(){const q=DB.quotes(),y=new Date().getFullYear();return`Q-${y}-${String(q.filter(x=>x.id.includes(y)).length+1).padStart(4,'0')}`},
-  _niDefault(){const i=DB.invs(),y=new Date().getFullYear();return`INV-${y}-${String(i.filter(x=>x.id.includes(y)).length+1).padStart(4,'0')}`},
-  // Next number continues from the LAST number created (even if it was typed in by hand):
-  //   URC-15 -> URC-16 · Q-2026-0009 -> Q-2026-0010 · QT-009 -> QT-010 · Rao-July-1 -> Rao-July-2
-  // Skips any number already in use. Falls back to the standard format when there is nothing to continue from.
-  _next(list,fallback){
-    list=list||[];
-    var last=null;
-    list.forEach(function(x){
-      if(!x||!x.id)return;
-      var s=x.createdAt||x.invoiceDate||'';
-      if(!last||s>(last.createdAt||last.invoiceDate||''))last=x; // ties keep the earlier array slot = newest
-    });
-    if(!last)return fallback();
-    var m=/^(.*?)(\d+)(\D*)$/.exec(String(last.id));
-    if(!m||m[2].length>15)return fallback();
-    var used={};list.forEach(function(x){if(x&&x.id)used[x.id]=1});
-    var n=parseInt(m[2],10),w=m[2].length;
-    for(var k=0;k<100000;k++){
-      n++;
-      var s2=String(n);while(s2.length<w)s2='0'+s2;
-      var cand=m[1]+s2+m[3];
-      if(!used[cand])return cand;
-    }
-    return fallback();
-  },
-  nq(){return DB._next(DB.quotes(),DB._nqDefault)},
-  ni(){return DB._next(DB.invs(),DB._niDefault)}
+  nq(){const q=DB.quotes(),y=new Date().getFullYear();return`Q-${y}-${String(q.filter(x=>x.id.includes(y)).length+1).padStart(4,'0')}`},
+  ni(){const i=DB.invs(),y=new Date().getFullYear();return`INV-${y}-${String(i.filter(x=>x.id.includes(y)).length+1).padStart(4,'0')}`}
 };
 const TERMS=`1. Menu rates are applicable for minimum 30 pax.\n2. Order once confirmed will not be cancelled (No advance will be refunded in case of any cancellation).\n3. 80% advance for order confirmation and balance on the event day.\n4. Above rates are subject to change without notice.\n5. Taxes as applicable.\n6. Setup includes transport cost, buffet setup, disposables.\n7. Crockery if required, additional cost of $4 per person will be applicable.\n8. Calculation will be as per plates or headcounts, whichever is higher.\n9. Live Tandoor will be charged $250 extra.`;
 
@@ -535,7 +465,7 @@ const fd=d=>{if(!d)return'';return new Date(d+'T00:00:00').toLocaleDateString('e
 const fdl=d=>{if(!d)return'';return new Date(d+'T00:00:00').toLocaleDateString('en-SG',{day:'numeric',month:'long',year:'numeric'})};
 
 // ── NAV ──
-function go(s){document.querySelectorAll('.screen').forEach(e=>e.classList.remove('active'));document.querySelectorAll('.ni').forEach(e=>e.classList.remove('on'));document.getElementById('s-'+s).classList.add('active');const n=document.getElementById('n-'+s);if(n)n.classList.add('on');if(s==='home'){dash();renderHome()}if(s==='history')renderHist();if(s==='customers'){custOpenKey=null;renderCustomers()}}
+function go(s){document.querySelectorAll('.screen').forEach(e=>e.classList.remove('active'));document.querySelectorAll('.ni').forEach(e=>e.classList.remove('on'));document.getElementById('s-'+s).classList.add('active');const n=document.getElementById('n-'+s);if(n)n.classList.add('on');if(s==='home'){dash();renderHome()}if(s==='history')renderHist()}
 
 // ── WIZARD STATE ──
 var step=0,wd={},pis=[],acs=[],eds=[],mf=null,editingId=null,editingInvId=null;
@@ -547,7 +477,7 @@ function newQ(){editingId=null;editingInvId=null;step=0;wd={};pis=[{n:'Adults Pa
 function editQ(id){
   const q=DB.quotes().find(x=>x.id===id);if(!q)return;
   editingId=id;step=0;
-  wd={fn:q.from?.name||'',fc:q.from?.contact||'',cn:q.customer?.name||'',cc:q.customer?.contact||'',ce:q.customer?.email||'',ve:q.venue||'',ed:q.eventDate||'',sl:q.slot||'',ts:q.timeStart||'',te:q.timeEnd||'',pa:q.pax?.adults||0,pk:q.pax?.kids||0,wt:q.terms||TERMS,rm:q.remarks||'',menuText:q.menuText||'',discType:q.discount?.type||'amt',discVal:q.discount?.value||0};
+  wd={fn:q.from?.name||'',fc:q.from?.contact||'',cn:q.customer?.name||'',cc:q.customer?.contact||'',ve:q.venue||'',ed:q.eventDate||'',sl:q.slot||'',ts:q.timeStart||'',te:q.timeEnd||'',pa:q.pax?.adults||0,pk:q.pax?.kids||0,wt:q.terms||TERMS,rm:q.remarks||'',menuText:q.menuText||'',discType:q.discount?.type||'amt',discVal:q.discount?.value||0};
   eds=(q.eventDates&&q.eventDates.length)?[...q.eventDates]:[q.eventDate||''];
   pis=(q.pricingItems||[]).map(p=>({n:p.packageName,p:p.unitPrice,t:p.paxType,q:p.customQty||0}));
   acs=(q.additionalCosts||[]).map(c=>({d:c.description||c.d||'',a:c.amount||c.a||0}));
@@ -559,7 +489,7 @@ function editQ(id){
 function editInv(id){
   const inv=DB.invs().find(x=>x.id===id);if(!inv)return;
   editingId=null;editingInvId=id;step=0;
-  wd={fn:inv.fromName||'Urban Roti',fc:inv.fromContact||'+65 6209 5545',cn:inv.customer?.name||'',cc:inv.customer?.contact||'',ce:inv.customer?.email||'',ve:inv.venue||'',ed:inv.eventDate||'',sl:inv.slot||'',ts:inv.timeStart||'',te:inv.timeEnd||'',pa:inv.pax?.adults||0,pk:inv.pax?.kids||0,wt:inv.terms||TERMS,rm:inv.remarks||'',menuText:inv.menuText||'',discType:inv.discount?.type||'amt',discVal:inv.discount?.value||0,invDate:inv.invoiceDate||new Date().toISOString().split('T')[0]};
+  wd={fn:inv.fromName||'Urban Roti',fc:inv.fromContact||'+65 6209 5545',cn:inv.customer?.name||'',cc:inv.customer?.contact||'',ve:inv.venue||'',ed:inv.eventDate||'',sl:inv.slot||'',ts:inv.timeStart||'',te:inv.timeEnd||'',pa:inv.pax?.adults||0,pk:inv.pax?.kids||0,wt:inv.terms||TERMS,rm:inv.remarks||'',menuText:inv.menuText||'',discType:inv.discount?.type||'amt',discVal:inv.discount?.value||0,invDate:inv.invoiceDate||new Date().toISOString().split('T')[0]};
   eds=(inv.eventDates&&inv.eventDates.length)?[...inv.eventDates]:[inv.eventDate||''];
   pis=(inv.pricingItems||[]).map(p=>({n:p.packageName,p:p.unitPrice,t:p.paxType||'adults',q:p.customQty||0}));
   acs=(inv.additionalCosts||[]).map(c=>({d:c.description||c.d||'',a:c.amount||c.a||0}));
@@ -647,8 +577,6 @@ function s0(){
     +'<div class="fld"><label>Customer Contact * <span style="font-weight:600;text-transform:none;font-size:10px">(8 digits)</span></label>'
     +'<input id="cc" type="tel" inputmode="numeric" maxlength="8" value="'+(wd.cc||'')+'" placeholder="91234567" '
     +'oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,8)"></div>'
-    +'<div class="fld"><label>Customer Email <span style="font-weight:600;text-transform:none;font-size:10px">(optional)</span></label>'
-    +'<input id="ce" type="email" inputmode="email" autocapitalize="off" autocomplete="off" value="'+cEsc(wd.ce||'')+'" placeholder="name@example.com"></div>'
     +'<div class="div"></div>'
     +'<div class="fld"><label>Postal Code <span style="font-weight:600;text-transform:none;font-size:10px">(auto-fills address)</span></label>'
     +'<div class="pfx"><div class="pfx-l">SG</div>'
@@ -741,7 +669,7 @@ function s3(){
 
 function saveWD(){
   if(step===0){
-    ['fn','fc','cn','cc','ce','ve'].forEach(function(id){var e=document.getElementById(id);if(e)wd[id]=e.value});
+    ['fn','fc','cn','cc','ve'].forEach(function(id){var e=document.getElementById(id);if(e)wd[id]=e.value});
     wd.ed=eds[0]||''; // primary date (first in array)
     var idEl=document.getElementById('inv-date');if(idEl)wd.invDate=idEl.value;
     var rmEl0=document.getElementById('rm');if(rmEl0)wd.rm=rmEl0.value;
@@ -762,8 +690,6 @@ function validate(){
     if(fc.length!==8){toast('Your contact must be exactly 8 digits','err');document.getElementById('fc')?.focus();return false}
     var cc=(document.getElementById('cc')?.value||'').replace(/\D/g,'');
     if(cc.length!==8){toast('Customer contact must be exactly 8 digits','err');document.getElementById('cc')?.focus();return false}
-    var ceV=(document.getElementById('ce')?.value||'').trim();
-    if(ceV&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ceV)){toast('Please enter a valid email address','err');document.getElementById('ce')?.focus();return false}
     return true;
   }
   if(step===1){
@@ -796,13 +722,13 @@ function generate(){
   if(editingId){
     // [FIX 4] Update existing quote
     const idx=qs.findIndex(x=>x.id===editingId);
-    if(idx>=0){qs[idx]={...qs[idx],from:{name:wd.fn,contact:wd.fc},customer:{name:wd.cn,contact:wd.cc,email:(wd.ce||'').trim()},venue:wd.ve,slot:wd.sl,eventDate:wd.ed,eventDates:eds.filter(Boolean),timeStart:wd.ts,timeEnd:wd.te,pax:{adults:pa,kids:pk},pricingItems:items,menuFile:mf,additionalCosts:acs.map(c=>({description:c.d,amount:c.a})),foodTotal:food,addTotal:add,subtotal:sub,gst,grandTotal:grand,terms:wd.wt||TERMS,remarks:wd.rm||'',menuText:wd.menuText||'',discount:{type:discType,value:discVal},discountAmount:discountAmt};DB.sq(qs);toast(`${editingId} updated!`,'ok');const id=editingId;editingId=null;oSheet(id,'quote');go('history');}
+    if(idx>=0){qs[idx]={...qs[idx],from:{name:wd.fn,contact:wd.fc},customer:{name:wd.cn,contact:wd.cc},venue:wd.ve,slot:wd.sl,eventDate:wd.ed,eventDates:eds.filter(Boolean),timeStart:wd.ts,timeEnd:wd.te,pax:{adults:pa,kids:pk},pricingItems:items,menuFile:mf,additionalCosts:acs.map(c=>({description:c.d,amount:c.a})),foodTotal:food,addTotal:add,subtotal:sub,gst,grandTotal:grand,terms:wd.wt||TERMS,remarks:wd.rm||'',menuText:wd.menuText||'',discount:{type:discType,value:discVal},discountAmount:discountAmt};DB.sq(qs);toast(`${editingId} updated!`,'ok');const id=editingId;editingId=null;oSheet(id,'quote');go('history');}
   } else if(editingInvId){
     // Update existing invoice (keeps advancePayment, status, id; invoice date is editable)
     const invs=DB.invs(),invIdx=invs.findIndex(x=>x.id===editingInvId);
     if(invIdx>=0){
       const orig=invs[invIdx];
-      invs[invIdx]={...orig,invoiceDate:wd.invDate||orig.invoiceDate,customer:{name:wd.cn,contact:wd.cc,email:(wd.ce||'').trim()},venue:wd.ve,slot:wd.sl,eventDate:wd.ed,eventDates:eds.filter(Boolean),timeStart:wd.ts,timeEnd:wd.te,pax:{adults:pa,kids:pk},pricingItems:items,menuFile:mf,additionalCosts:acs.map(c=>({description:c.d,amount:c.a})),foodTotal:food,addTotal:add,subtotal:sub,gst,grandTotal:grand,terms:wd.wt||TERMS,remarks:wd.rm||'',menuText:wd.menuText||'',discount:{type:discType,value:discVal},discountAmount:discountAmt,fromName:wd.fn,fromContact:wd.fc};
+      invs[invIdx]={...orig,invoiceDate:wd.invDate||orig.invoiceDate,customer:{name:wd.cn,contact:wd.cc},venue:wd.ve,slot:wd.sl,eventDate:wd.ed,eventDates:eds.filter(Boolean),timeStart:wd.ts,timeEnd:wd.te,pax:{adults:pa,kids:pk},pricingItems:items,menuFile:mf,additionalCosts:acs.map(c=>({description:c.d,amount:c.a})),foodTotal:food,addTotal:add,subtotal:sub,gst,grandTotal:grand,terms:wd.wt||TERMS,remarks:wd.rm||'',menuText:wd.menuText||'',discount:{type:discType,value:discVal},discountAmount:discountAmt,fromName:wd.fn,fromContact:wd.fc};
       DB.si(invs);toast(`Invoice ${editingInvId} updated! ✅`,'ok');
       const invId=editingInvId;editingInvId=null;oSheet(invId,'invoice');go('history');
     }
@@ -852,7 +778,7 @@ function oSheet(id,type){
   document.getElementById('sh-foot').innerHTML=a;
   document.getElementById('bd').classList.add('on');document.getElementById('sheet').classList.add('on');
 }
-function cSheet(){document.getElementById('bd').classList.remove('on');document.getElementById('sheet').classList.remove('on');if(document.getElementById('s-customers').classList.contains('active'))refreshCust()}
+function cSheet(){document.getElementById('bd').classList.remove('on');document.getElementById('sheet').classList.remove('on')}
 
 // Save advance payment to invoice
 function saveAdvPay(id){
@@ -884,7 +810,7 @@ function docMini(obj,type){const isQ=type==='quote';const items=obj.pricingItems
   const grandAmt=obj.grandTotal||0;
   const balDiff=grandAmt-advPay;
   const advRows=!isQ&&advPay>0?`<div class="dmtr" style="background:#2A7A50"><span>Less: Advance</span><span>-S$ ${advPay.toFixed(2)}</span></div>`+(balDiff>0?`<div class="dmtr" style="background:#1A6BBF;font-weight:700"><span>BALANCE DUE</span><span>S$ ${balDiff.toFixed(2)}</span></div>`:`<div class="dmtr" style="background:#C0392B;font-weight:700"><span>${balDiff<0?'REFUND AMOUNT':'FULLY PAID'}</span><span>${balDiff<0?'S$ '+Math.abs(balDiff).toFixed(2):'✅'}</span></div>`):'';
-  return`<div class="dm" id="dm-r"><div class="dmh"><div class="dmlo"><div class="dmlb"><img src="${LOGO_B64}" style="width:100%;height:100%;object-fit:contain;padding:2px"></div><div><div class="dmco">Urban Roti</div><div class="dmcs">Catering & Events</div><div class="dmci">📞 +65 6209 5545 · urbanroti.com.sg</div></div></div><div><div class="dmty">${isQ?'Quotation':'Invoice'}</div><div class="dmnu">${obj.id}</div><div class="dmnu">${isQ?fdl(obj.createdAt?.split('T')[0]):fdl(obj.invoiceDate)}</div></div></div><div class="dmpar"><div class="dmp"><div class="dmpl">${isQ?'From':'Billed By'}</div><div class="dmpn">${isQ?obj.from?.name:'Urban Roti'}</div><div class="dmpi">${isQ?obj.from?.contact||'':''}</div></div><div class="dmp to"><div class="dmpl">${isQ?'Quotation For':'Billed To'}</div><div class="dmpn">${obj.customer?.name}</div><div class="dmpi">📱 ${obj.customer?.contact||''}</div>${obj.customer?.email?'<div class="dmpi">✉️ '+cEsc(obj.customer.email)+'</div>':''}</div></div><div class="dmev"><div><div class="dmel">Event Date${eventDates.filter(Boolean).length>1?'s':''}</div><div class="dmev2 hi">${dateDisplay}</div></div><div><div class="dmel">Slot</div><div class="dmev2">${obj.slot||'—'}</div></div><div><div class="dmel">Time</div><div class="dmev2">${tr2}</div></div><div><div class="dmel">Venue</div><div class="dmev2" style="font-size:9px">${obj.venue||'—'}</div></div></div><table class="dmt"><thead><tr><th>Package</th><th>Pax</th><th>Unit</th><th>Amount</th></tr></thead><tbody>${rows}${arows}</tbody></table><div style="display:flex;justify-content:flex-end;margin-bottom:8px"><div class="dmto"><div class="dmtr"><span>Food Cost</span><span>S$ ${(obj.foodTotal||0).toFixed(2)}</span></div>${(obj.addTotal||0)>0?`<div class="dmtr"><span>Additional</span><span>S$ ${obj.addTotal.toFixed(2)}</span></div>`:''}${(obj.discountAmount||0)>0?`<div class="dmtr" style="background:#EAF7EE"><span style="color:#2A7A50">Discount${obj.discount?.type==='pct'?' ('+obj.discount.value+'%)':''}  </span><span style="color:#2A7A50">-S$ ${(obj.discountAmount||0).toFixed(2)}</span></div>`:''}<div class="dmtr"><span>Subtotal</span><span>S$ ${(obj.subtotal||0).toFixed(2)}</span></div><div class="dmtr"><span>GST 9%</span><span>S$ ${(obj.gst||0).toFixed(2)}</span></div><div class="dmtr gd"><span>TOTAL</span><span>S$ ${(obj.grandTotal||0).toFixed(2)}</span></div>${advRows}${!isQ&&(obj.status==='paid'||(obj.advancePayment||0)>=(obj.grandTotal||0))?'<div class="dmtr" style="background:#2A7A50;font-size:11px;letter-spacing:1px;text-align:center;justify-content:center"><span>✅ FULLY PAID</span></div>':''}</div></div><div class="dmw"><b>Amount in Words:</b> ${words(obj.grandTotal||0)}</div><div class="dmte"><div class="dmte-t">Terms & Conditions</div><ol>${tl}</ol></div></div>`}
+  return`<div class="dm" id="dm-r"><div class="dmh"><div class="dmlo"><div class="dmlb"><img src="${LOGO_B64}" style="width:100%;height:100%;object-fit:contain;padding:2px"></div><div><div class="dmco">Urban Roti</div><div class="dmcs">Catering & Events</div><div class="dmci">📞 +65 6209 5545 · urbanroti.com.sg</div></div></div><div><div class="dmty">${isQ?'Quotation':'Invoice'}</div><div class="dmnu">${obj.id}</div><div class="dmnu">${isQ?fdl(obj.createdAt?.split('T')[0]):fdl(obj.invoiceDate)}</div></div></div><div class="dmpar"><div class="dmp"><div class="dmpl">${isQ?'From':'Billed By'}</div><div class="dmpn">${isQ?obj.from?.name:'Urban Roti'}</div><div class="dmpi">${isQ?obj.from?.contact||'':''}</div></div><div class="dmp to"><div class="dmpl">${isQ?'Quotation For':'Billed To'}</div><div class="dmpn">${obj.customer?.name}</div><div class="dmpi">📱 ${obj.customer?.contact||''}</div></div></div><div class="dmev"><div><div class="dmel">Event Date${eventDates.filter(Boolean).length>1?'s':''}</div><div class="dmev2 hi">${dateDisplay}</div></div><div><div class="dmel">Slot</div><div class="dmev2">${obj.slot||'—'}</div></div><div><div class="dmel">Time</div><div class="dmev2">${tr2}</div></div><div><div class="dmel">Venue</div><div class="dmev2" style="font-size:9px">${obj.venue||'—'}</div></div></div><table class="dmt"><thead><tr><th>Package</th><th>Pax</th><th>Unit</th><th>Amount</th></tr></thead><tbody>${rows}${arows}</tbody></table><div style="display:flex;justify-content:flex-end;margin-bottom:8px"><div class="dmto"><div class="dmtr"><span>Food Cost</span><span>S$ ${(obj.foodTotal||0).toFixed(2)}</span></div>${(obj.addTotal||0)>0?`<div class="dmtr"><span>Additional</span><span>S$ ${obj.addTotal.toFixed(2)}</span></div>`:''}${(obj.discountAmount||0)>0?`<div class="dmtr" style="background:#EAF7EE"><span style="color:#2A7A50">Discount${obj.discount?.type==='pct'?' ('+obj.discount.value+'%)':''}  </span><span style="color:#2A7A50">-S$ ${(obj.discountAmount||0).toFixed(2)}</span></div>`:''}<div class="dmtr"><span>Subtotal</span><span>S$ ${(obj.subtotal||0).toFixed(2)}</span></div><div class="dmtr"><span>GST 9%</span><span>S$ ${(obj.gst||0).toFixed(2)}</span></div><div class="dmtr gd"><span>TOTAL</span><span>S$ ${(obj.grandTotal||0).toFixed(2)}</span></div>${advRows}${!isQ&&(obj.status==='paid'||(obj.advancePayment||0)>=(obj.grandTotal||0))?'<div class="dmtr" style="background:#2A7A50;font-size:11px;letter-spacing:1px;text-align:center;justify-content:center"><span>✅ FULLY PAID</span></div>':''}</div></div><div class="dmw"><b>Amount in Words:</b> ${words(obj.grandTotal||0)}</div><div class="dmte"><div class="dmte-t">Terms & Conditions</div><ol>${tl}</ol></div></div>`}
 
 // ── A4 DOCUMENT HTML GENERATOR (Grouped pricing, orange accents, larger fonts) ──
 function genA4HTML(obj,type){
@@ -1015,9 +941,7 @@ function genA4HTML(obj,type){
   +'<div style="background:#FDF6EE;border-left:4px solid #D4922A;padding:13px 16px;border-radius:4px">'
   +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#D4922A;margin-bottom:6px">'+toLabel+'</div>'
   +'<div style="font-size:17px;font-weight:700">'+(obj.customer?.name||'')+'</div>'
-  +'<div style="font-size:12px;color:#8A6540;font-weight:700;margin-top:3px">'+(obj.customer?.contact||'')+'</div>'
-  +(obj.customer?.email?'<div style="font-size:12px;color:#8A6540;font-weight:700;margin-top:2px">'+cEsc(obj.customer.email)+'</div>':'')
-  +'</div></div>'
+  +'<div style="font-size:12px;color:#8A6540;font-weight:700;margin-top:3px">'+(obj.customer?.contact||'')+'</div></div></div>'
   // Event strip, pax, content — all in pdf-body
   +'<div style="background:#C4552A;border-radius:8px;padding:16px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">'
   +'<div><div style="font-size:10px;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.5px">Event Date'+(eventDatesArr.filter(Boolean).length>1?'s':'')+'</div><div style="font-size:15px;font-weight:700;color:#fff;margin-top:4px;line-height:1.4">'+eventDatesDisplay+'</div></div>'
@@ -1448,7 +1372,7 @@ async function waWithPDF(type,id){
   toast('PDF saved — attaching in WhatsApp…','ok');
 }
 
-function mail(type,id){const o=type==='quote'?DB.quotes().find(x=>x.id===id):DB.invs().find(x=>x.id===id);if(!o)return;const sub=type==='quote'?`Urban Roti Quotation ${o.id}`:`Urban Roti Invoice ${o.id}`;const body=type==='quote'?`Dear ${o.customer.name},\n\nQuotation ${o.id} for catering on ${fdl(o.eventDate)}.\nTime: ${t12(o.timeStart)||''} · Venue: ${o.venue}\nTotal: S$ ${(o.grandTotal||0).toFixed(2)} incl. 9% GST\n\nKindly reply to confirm.\n\nUrban Roti Catering\nwww.urbanroti.com.sg`:`Dear ${o.customer.name},\n\nInvoice ${o.id} for event on ${fdl(o.eventDate)}.\nTotal Due: S$ ${(o.grandTotal||0).toFixed(2)} incl. 9% GST. Ref: ${o.id}\n\nUrban Roti Catering`;window.location.href=`mailto:${o.customer&&o.customer.email?o.customer.email:''}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`}
+function mail(type,id){const o=type==='quote'?DB.quotes().find(x=>x.id===id):DB.invs().find(x=>x.id===id);if(!o)return;const sub=type==='quote'?`Urban Roti Quotation ${o.id}`:`Urban Roti Invoice ${o.id}`;const body=type==='quote'?`Dear ${o.customer.name},\n\nQuotation ${o.id} for catering on ${fdl(o.eventDate)}.\nTime: ${t12(o.timeStart)||''} · Venue: ${o.venue}\nTotal: S$ ${(o.grandTotal||0).toFixed(2)} incl. 9% GST\n\nKindly reply to confirm.\n\nUrban Roti Catering\nwww.urbanroti.com.sg`:`Dear ${o.customer.name},\n\nInvoice ${o.id} for event on ${fdl(o.eventDate)}.\nTotal Due: S$ ${(o.grandTotal||0).toFixed(2)} incl. 9% GST. Ref: ${o.id}\n\nUrban Roti Catering`;window.location.href=`mailto:?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`}
 
 // ── MANUAL INVOICE NUMBER ──
 function promptMkInv(qid){
@@ -1471,10 +1395,9 @@ function promptMkInv(qid){
 function confirmMkInv(qid){
   var inp=document.getElementById('inv-num-input');
   var customId=inp?inp.value.trim():'';
-  if(!customId){toast('Please enter an invoice number','err');return;}
-  if(DB.invs().some(function(x){return x.id===customId;})){toast('Invoice number "'+customId+'" already exists','err');return;}
   var modal=document.getElementById('inv-num-modal');
   if(modal)modal.remove();
+  if(!customId){toast('Please enter an invoice number','err');return;}
   mkInv(qid,customId);
 }
 
@@ -1517,11 +1440,11 @@ function confirmMkQuote(){
   const discountAmt=discType==='pct'?Math.round(baseAmt*discVal/100*100)/100:Math.min(discVal,baseAmt);
   const sub=baseAmt-discountAmt,gst=sub*.09,grand=sub+gst;
   const qs=DB.quotes();
-  const q={id:customId,createdAt:new Date().toISOString(),status:'draft',from:{name:wd.fn,contact:wd.fc},customer:{name:wd.cn,contact:wd.cc,email:(wd.ce||'').trim()},venue:wd.ve,slot:wd.sl,eventDate:wd.ed,eventDates:eds.filter(Boolean),timeStart:wd.ts,timeEnd:wd.te,pax:{adults:pa,kids:pk},pricingItems:items,menuFile:mf,additionalCosts:acs.map(function(c){return{description:c.d,amount:c.a};}),foodTotal:food,addTotal:add,subtotal:sub,gst:gst,grandTotal:grand,terms:wd.wt||TERMS,remarks:wd.rm||'',menuText:wd.menuText||'',discount:{type:discType,value:discVal},discountAmount:discountAmt};
+  const q={id:customId,createdAt:new Date().toISOString(),status:'draft',from:{name:wd.fn,contact:wd.fc},customer:{name:wd.cn,contact:wd.cc},venue:wd.ve,slot:wd.sl,eventDate:wd.ed,eventDates:eds.filter(Boolean),timeStart:wd.ts,timeEnd:wd.te,pax:{adults:pa,kids:pk},pricingItems:items,menuFile:mf,additionalCosts:acs.map(function(c){return{description:c.d,amount:c.a};}),foodTotal:food,addTotal:add,subtotal:sub,gst:gst,grandTotal:grand,terms:wd.wt||TERMS,remarks:wd.rm||'',menuText:wd.menuText||'',discount:{type:discType,value:discVal},discountAmount:discountAmt};
   qs.unshift(q);DB.sq(qs);toast(q.id+' generated!','ok');oSheet(q.id,'quote');go('home');
 }
 
-function mkInv(qid,customId){const qs=DB.quotes(),qi=qs.findIndex(x=>x.id===qid);if(qi<0)return;qs[qi].status='confirmed';DB.sq(qs);const q=qs[qi];const invId=customId||DB.ni();const inv={id:invId,createdAt:new Date().toISOString(),invoiceDate:new Date().toISOString().split('T')[0],quotationId:q.id,status:'issued',customer:{...q.customer},eventDate:q.eventDate,eventDates:q.eventDates||[q.eventDate],slot:q.slot,timeStart:q.timeStart,timeEnd:q.timeEnd,pax:{...q.pax},pricingItems:q.pricingItems,additionalCosts:q.additionalCosts||[],foodTotal:q.foodTotal,addTotal:q.addTotal,subtotal:q.subtotal,gst:q.gst,grandTotal:q.grandTotal,terms:q.terms,remarks:q.remarks||'',menuText:q.menuText||'',discount:q.discount||null,discountAmount:q.discountAmount||0,advancePayment:0,fromName:q.from?.name,fromContact:q.from?.contact};const is=DB.invs();is.unshift(inv);DB.si(is);toast(`Invoice ${invId} created!`,'ok');setTimeout(()=>oSheet(invId,'invoice'),400);dash();renderHome()}
+function mkInv(qid,customId){const qs=DB.quotes(),qi=qs.findIndex(x=>x.id===qid);if(qi<0)return;qs[qi].status='confirmed';DB.sq(qs);const q=qs[qi];const invId=customId||DB.ni();const inv={id:invId,invoiceDate:new Date().toISOString().split('T')[0],quotationId:q.id,status:'issued',customer:{...q.customer},eventDate:q.eventDate,eventDates:q.eventDates||[q.eventDate],slot:q.slot,timeStart:q.timeStart,timeEnd:q.timeEnd,pax:{...q.pax},pricingItems:q.pricingItems,additionalCosts:q.additionalCosts||[],foodTotal:q.foodTotal,addTotal:q.addTotal,subtotal:q.subtotal,gst:q.gst,grandTotal:q.grandTotal,terms:q.terms,remarks:q.remarks||'',menuText:q.menuText||'',discount:q.discount||null,discountAmount:q.discountAmount||0,advancePayment:0,fromName:q.from?.name,fromContact:q.from?.contact};const is=DB.invs();is.unshift(inv);DB.si(is);toast(`Invoice ${invId} created!`,'ok');setTimeout(()=>oSheet(invId,'invoice'),400);dash();renderHome()}
 function mkPaid(id){const is=DB.invs(),idx=is.findIndex(x=>x.id===id);if(idx>=0){is[idx].status='paid';DB.si(is);toast('Marked as PAID 🎉','ok');renderHist()}}
 
 // ── [FIX 4] DELETE FUNCTIONS ──
@@ -1533,108 +1456,6 @@ var hTab='q';
 function htab(t){hTab=t;['q','i'].forEach(x=>{const e=document.getElementById('ht-'+x);if(e)e.className='ht'+(x===t?' on':'')});renderHist()}
 
 // History render — View, Edit, Share, Generate Invoice (all string concat, no nested templates)
-// ═══════════ CUSTOMERS TAB ═══════════
-var custOpenKey=null;
-function cEsc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-// A customer is identified by phone number (always captured); falls back to name.
-function custKey(c){var ph=((c&&c.contact)||'').replace(/\D/g,'');return ph?('p'+ph):('n'+((c&&c.name)||'').trim().toLowerCase())}
-function custEvDate(o){return (o.eventDates&&o.eventDates[0])||o.eventDate||''}
-function custEvDates(o){return o.eventDates&&o.eventDates.length>1?o.eventDates.map(fd).join(' & '):fd(o.eventDate)}
-function custBuild(){
-  var qs=DB.quotes(),is=DB.invs(),map={},used={},invByQ={};
-  is.forEach(function(i){if(i.quotationId){var o=invByQ[i.quotationId];if(!o||(i.invoiceDate||'')>(o.invoiceDate||''))invByQ[i.quotationId]=i}});
-  function add(c,ev,stamp){
-    if(!c||(!(c.name||'').trim()&&!(c.contact||'').trim()))return;
-    var k=custKey(c),m=map[k];
-    if(!m)m=map[k]={key:k,name:'',contact:'',email:'',nameStamp:'',emailStamp:'',events:[],invoiced:0,due:0};
-    if(!m.name||stamp>=m.nameStamp){m.nameStamp=stamp;if(c.name)m.name=c.name;if(c.contact)m.contact=c.contact}
-    if(c.email&&(!m.email||stamp>=m.emailStamp)){m.email=c.email;m.emailStamp=stamp}
-    m.events.push(ev);
-    if(ev.invoice){var g=ev.invoice.grandTotal||0;m.invoiced+=g;if(ev.invoice.status!=='paid')m.due+=Math.max(0,g-(ev.invoice.advancePayment||0))}
-  }
-  // each quotation is one catering event; its invoice (if any) is attached to it
-  qs.forEach(function(q){
-    var inv=invByQ[q.id]||null;if(inv)used[inv.id]=1;
-    var base=(inv&&inv.customer)||q.customer||{};
-    var c={name:base.name,contact:base.contact,email:base.email||(q.customer&&q.customer.email)||''};
-    add(c,{quote:q,invoice:inv,date:custEvDate(inv||q),stamp:q.createdAt||''},(inv&&inv.invoiceDate)||q.createdAt||'');
-  });
-  // invoices whose quotation no longer exists still count as events
-  is.forEach(function(i){
-    if(used[i.id])return;
-    add(i.customer,{quote:null,invoice:i,date:custEvDate(i),stamp:i.invoiceDate||''},i.invoiceDate||'');
-  });
-  return Object.keys(map).map(function(k){
-    var m=map[k];
-    m.events.sort(function(a,b){return (b.date||b.stamp||'').localeCompare(a.date||a.stamp||'')});
-    return m;
-  }).sort(function(a,b){return (a.name||'').toLowerCase().localeCompare((b.name||'').toLowerCase())});
-}
-function showCustList(){
-  document.getElementById('cust-list-view').style.display='block';
-  document.getElementById('cust-detail-view').style.display='none';
-}
-function renderCustomers(){
-  custOpenKey=null;showCustList();
-  var s=(document.getElementById('csrch')?.value||'').toLowerCase().trim();
-  var all=custBuild();
-  var list=all.filter(function(c){return !s||(c.name||'').toLowerCase().includes(s)||(c.contact||'').includes(s)||(c.email||'').toLowerCase().includes(s)});
-  document.getElementById('cust-count').textContent=list.length+(s?' of '+all.length:'')+' customer'+(all.length===1?'':'s');
-  var el=document.getElementById('cust-list');
-  if(!all.length){el.innerHTML='<div class="empty"><div class="empty-ic">👥</div><div class="empty-tx">No customers yet.<br>They appear here as soon as you create a quotation.</div></div>';return}
-  if(!list.length){el.innerHTML='<div class="empty"><div class="empty-ic">🔍</div><div class="empty-tx">No customer matches your search.</div></div>';return}
-  el.innerHTML=list.map(function(c){
-    var n=c.events.length;
-    return '<div class="cu" data-k="'+cEsc(c.key)+'" onclick="openCustomer(this.dataset.k)">'
-      +'<div class="cu-av">'+cEsc((c.name||'?').trim().charAt(0).toUpperCase())+'</div>'
-      +'<div class="cu-main"><div class="cu-name">'+cEsc(c.name||'—')+'</div>'
-      +'<div class="cu-line">📱 '+cEsc(c.contact||'—')+'</div>'
-      +(c.email?'<div class="cu-line">✉️ '+cEsc(c.email)+'</div>':'')+'</div>'
-      +'<div class="cu-side"><div class="cu-n">'+n+' event'+(n===1?'':'s')+'</div><div class="cu-amt">S$ '+c.invoiced.toFixed(2)+'</div></div></div>';
-  }).join('');
-}
-function openCustomer(key){custOpenKey=key;renderCustDetail();var sc=document.getElementById('s-customers');if(sc)sc.scrollTop=0}
-function closeCustomer(){renderCustomers()}
-function refreshCust(){if(custOpenKey)renderCustDetail();else renderCustomers()}
-function renderCustDetail(){
-  var c=custBuild().find(function(x){return x.key===custOpenKey});
-  if(!c){renderCustomers();return}
-  document.getElementById('cust-list-view').style.display='none';
-  var dv=document.getElementById('cust-detail-view');dv.style.display='block';
-  var tel=(c.contact||'').replace(/\D/g,'');
-  var h='<button class="cd-back" onclick="closeCustomer()">← All customers</button>'
-    +'<div class="cd-card"><div class="cu-av big">'+cEsc((c.name||'?').trim().charAt(0).toUpperCase())+'</div><div style="min-width:0">'
-    +'<div class="cd-name">'+cEsc(c.name||'—')+'</div>'
-    +(tel?'<a href="tel:'+cEsc(tel)+'">📱 '+cEsc(c.contact)+'</a>':'')
-    +(c.email?'<a href="mailto:'+cEsc(c.email)+'">✉️ '+cEsc(c.email)+'</a>':'<span class="cd-nomail">✉️ No email on file</span>')
-    +'</div></div>'
-    +'<div class="cd-stats"><div><b>'+c.events.length+'</b><span>Events</span></div>'
-    +'<div><b>S$ '+c.invoiced.toFixed(2)+'</b><span>Invoiced</span></div>'
-    +'<div><b style="color:'+(c.due>0?'#C0392B':'#2A7A50')+'">S$ '+c.due.toFixed(2)+'</b><span>Balance due</span></div></div>'
-    +'<div class="cd-sec">Catering history</div>';
-  h+=c.events.map(function(ev){
-    var o=ev.invoice||ev.quote;
-    var pax=(o.pax?.adults||0)+(o.pax?.kids||0);
-    var meta=[o.slot||'',o.timeStart?t12(o.timeStart):'',pax?pax+' pax':'',o.venue||''].filter(Boolean).map(cEsc).join(' · ');
-    var r='<div class="ev"><div class="ev-t"><div class="ev-d">📅 '+cEsc(custEvDates(o))+'</div>'+(meta?'<div class="ev-s">'+meta+'</div>':'')+'</div>';
-    if(ev.quote){
-      var q=ev.quote;
-      r+='<div class="ev-r" data-id="'+cEsc(q.id)+'" onclick="oSheet(this.dataset.id,\'quote\')"><div><div class="ev-id">📋 '+cEsc(q.id)+'</div><div class="ev-s">Quotation'+(ev.invoice?'':' · '+cEsc(q.status||'draft'))+'</div></div>'
-        +'<div class="ev-am">S$ '+(q.grandTotal||0).toFixed(2)+'</div></div>';
-    }
-    if(ev.invoice){
-      var i=ev.invoice,g=i.grandTotal||0,adv=i.advancePayment||0;
-      var paid=i.status==='paid'||adv>=g;
-      var st=paid?'<span class="badge bp">Paid</span>':'<span class="badge bc">Due S$ '+Math.max(0,g-adv).toFixed(2)+'</span>';
-      r+='<div class="ev-r" data-id="'+cEsc(i.id)+'" onclick="oSheet(this.dataset.id,\'invoice\')"><div><div class="ev-id">🧾 '+cEsc(i.id)+'</div><div style="margin-top:4px">'+st+'</div></div>'
-        +'<div><div class="ev-am">S$ '+g.toFixed(2)+'</div>'
-        +'<button class="ev-pdf" data-id="'+cEsc(i.id)+'" onclick="event.stopPropagation();xPDF(this.dataset.id,\'invoice\')">📄 PDF</button></div></div>';
-    }
-    return r+'</div>';
-  }).join('');
-  dv.innerHTML=h;
-}
-
 function renderHist(){
   var s=(document.getElementById('hsrch')?.value||'').toLowerCase();
   var c=document.getElementById('hist-list');
@@ -1695,9 +1516,7 @@ function shareQ(id,type){
     '<div style="background:var(--cream2);border-radius:12px;padding:14px;margin-bottom:10px">'
     +'<div style="font-size:10px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Sharing with</div>'
     +'<div style="font-size:16px;font-weight:800">'+(obj.customer?.name||'')+'</div>'
-    +'<div style="font-size:13px;color:var(--muted);margin-top:2px">'+(obj.customer?.contact||'')+'</div>'
-    +(obj.customer?.email?'<div style="font-size:13px;color:var(--muted);margin-top:2px">'+cEsc(obj.customer.email)+'</div>':'')
-    +'</div>'
+    +'<div style="font-size:13px;color:var(--muted);margin-top:2px">'+(obj.customer?.contact||'')+'</div></div>'
     +'<div style="background:var(--cream2);border-radius:10px;padding:12px;font-size:12px;color:var(--ink);line-height:1.7">'
     +'<strong>'+obj.id+'</strong><br>'
     +'📅 '+(obj.eventDates&&obj.eventDates.length>1?obj.eventDates.map(fdl).join(' & '):fdl(obj.eventDate))+(obj.slot?' · '+obj.slot:'')+'<br>'
@@ -1839,6 +1658,8 @@ function urShowApp(user){
   document.getElementById('logout-btn').style.display = 'inline-block';
   var sb = document.getElementById('sync-btn');
   if(sb) sb.style.display = 'inline-block';
+  var bk = document.getElementById('bk-btn');
+  if(bk) bk.style.display = 'inline-block';
 }
 
 function urShowLogin(){
@@ -1847,6 +1668,8 @@ function urShowLogin(){
   document.getElementById('logout-btn').style.display = 'none';
   var sb = document.getElementById('sync-btn');
   if(sb) sb.style.display = 'none';
+  var bk = document.getElementById('bk-btn');
+  if(bk) bk.style.display = 'none';
   // Reset form
   document.getElementById('ur-pw').value = '';
   urClearErr();
@@ -1877,6 +1700,82 @@ async function urSyncNow(){
   } else {
     toast(msg, 'ok');
   }
+}
+
+
+// ═══════════════════════════════════════════════════════
+// BACKUP: EXPORT / IMPORT (move data between accounts)
+// ═══════════════════════════════════════════════════════
+function urBackupMenu(){
+  var old=document.getElementById('bk-sheet'); if(old) old.remove();
+  var d=document.createElement('div');
+  d.id='bk-sheet';
+  d.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:99999;display:flex;align-items:flex-end;justify-content:center';
+  d.onclick=function(e){if(e.target===d)d.remove();};
+  var email=(window.urFB&&window.urFB.currentUser&&window.urFB.currentUser.email)||'';
+  d.innerHTML='<div style="background:#fff;width:100%;max-width:480px;border-radius:18px 18px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px));font-family:Nunito,sans-serif">'
+   +'<div style="font-weight:800;font-size:17px;color:#1A0C04">Backup &amp; Transfer</div>'
+   +'<div style="font-size:12px;color:#777;margin:4px 0 14px">Signed in as '+(email||'—')+'</div>'
+   +'<button onclick="urExportData()" style="width:100%;padding:14px;border:none;border-radius:12px;background:#C4552A;color:#fff;font-weight:800;font-size:15px;margin-bottom:10px">⬇ Export data (download file)</button>'
+   +'<button onclick="document.getElementById(\'bk-file\').click()" style="width:100%;padding:14px;border:2px solid #C4552A;border-radius:12px;background:#fff;color:#C4552A;font-weight:800;font-size:15px;margin-bottom:10px">⬆ Import data (from file)</button>'
+   +'<div style="font-size:12px;color:#777;line-height:1.5">To move data to another account: Export here → Sign out → Sign in with the other email → Import. Imported items are added to the account you are signed in to; existing items with the same ID are overwritten.</div>'
+   +'<input type="file" id="bk-file" accept=".json,application/json" style="display:none" onchange="urImportData(this)">'
+   +'</div>';
+  document.body.appendChild(d);
+}
+
+function urExportData(){
+  try{
+    var user=(window.urFB&&window.urFB.currentUser)||{};
+    var payload={
+      app:'UrbanRoti', version:1,
+      exportedAt:new Date().toISOString(),
+      fromEmail:user.email||'',
+      quotes:DB.quotes()||[],
+      invoices:DB.invs()||[]
+    };
+    var blob=new Blob([JSON.stringify(payload)],{type:'application/json'});
+    var a=document.createElement('a');
+    var ymd=new Date().toISOString().slice(0,10);
+    a.href=URL.createObjectURL(blob);
+    a.download='UrbanRoti_backup_'+ymd+'.json';
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1000);
+    toast('Exported '+payload.quotes.length+' quotes + '+payload.invoices.length+' invoices','ok');
+    var s=document.getElementById('bk-sheet'); if(s) s.remove();
+  }catch(e){ toast('Export failed: '+e.message,'err'); }
+}
+
+function urImportData(input){
+  var f=input.files&&input.files[0];
+  if(!f) return;
+  var r=new FileReader();
+  r.onload=function(){
+    try{
+      var data=JSON.parse(r.result);
+      if(!data||data.app!=='UrbanRoti'||!Array.isArray(data.quotes)||!Array.isArray(data.invoices)){
+        toast('Not a valid Urban Roti backup file','err'); input.value=''; return;
+      }
+      var user=(window.urFB&&window.urFB.currentUser)||{};
+      var msg='Import '+data.quotes.length+' quotes + '+data.invoices.length+' invoices'
+        +(data.fromEmail?' (exported from '+data.fromEmail+')':'')
+        +' into '+(user.email||'this account')+'?';
+      if(!confirm(msg)){ input.value=''; return; }
+      function merge(cur,inc){
+        var map={}; (cur||[]).forEach(function(x){if(x&&x.id)map[x.id]=x;});
+        (inc||[]).forEach(function(x){if(x&&x.id)map[x.id]=x;});
+        return Object.keys(map).map(function(k){return map[k];});
+      }
+      var mq=merge(DB.quotes(),data.quotes);
+      var mi=merge(DB.invs(),data.invoices);
+      DB.sq(mq); DB.si(mi);   // saves locally and pushes to the signed-in account's cloud
+      toast('Imported — syncing to cloud…','ok');
+      var s=document.getElementById('bk-sheet'); if(s) s.remove();
+      setTimeout(function(){ try{dash();renderHome();}catch(e){} },300);
+    }catch(e){ toast('Import failed: '+e.message,'err'); }
+    input.value='';
+  };
+  r.readAsText(f);
 }
 
 // Wire up auth listener once Firebase SDK is ready
