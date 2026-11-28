@@ -6,8 +6,8 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#1A0C04",
-  "theme_color": "#1A0C04",
+  "background_color": "#2F2D2E",
+  "theme_color": "#2F2D2E",
   "categories": ["business", "food", "productivity"],
   "icons": [
     {

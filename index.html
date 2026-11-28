@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Urban Roti">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#1A0C04">
+<meta name="theme-color" content="#2F2D2E">
 <title>Urban Roti</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="64x64" href="./favicon.png">
@@ -21,64 +21,66 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
 :root{
-  --ink:#1A0C04;--ink2:#3C1A08;--clay:#C4552A;--clay2:#E0663A;
-  --gold:#D4922A;--gold2:#F0AE44;
-  --cream:#FFFBF4;--cream2:#F5EBD6;--cream3:#EAD8BE;
-  --muted:#8A6540;--border:#E2D0B8;
+  --ink:#2B2829;--ink2:#474546;--clay:#DD5904;--clay2:#F26F1F;
+  --gold:#DD5904;--gold2:#FFB07A;
+  --cream:#F5F3F2;--cream2:#ECE9E8;--cream3:#D9D5D4;
+  --muted:#6B6769;--border:#E3DFDD;
   --green:#2A7A50;--red:#C0392B;--blue:#1A6BBF;
   --nav:68px;--hdr:58px;--r:16px;--r2:12px;--r3:8px;
-  --sh:0 2px 16px rgba(26,12,4,.10);--sh2:0 8px 32px rgba(26,12,4,.18);
+  --sh:0 2px 16px rgba(43,40,41,.10);--sh2:0 8px 32px rgba(43,40,41,.18);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;background:var(--cream)}
 body{font-family:'Nunito',sans-serif;color:var(--ink);font-size:15px;line-height:1.5}
 #app{display:flex;flex-direction:column;height:100vh;height:100dvh}
-#hdr{height:var(--hdr);background:var(--ink);flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:60}
+#hdr{height:var(--hdr);background:#2F2D2E;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:60}
 .hdr-logo{display:flex;align-items:center;gap:10px}
-.hdr-ring{width:38px;height:38px;background:#fff;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.hdr-ring img{width:100%;height:100%;object-fit:contain;padding:3px}
+.hdr-ring{width:auto;height:34px;background:none;border-radius:0;overflow:visible;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hdr-ring img{height:34px;width:auto;max-width:110px;object-fit:contain;padding:0}
+.hdr-name{display:none !important}
 .hdr-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff}
 .hdr-name em{font-style:normal;color:var(--gold2)}
+.hdr-ic:hover{background:rgba(255,255,255,.18)}
 .hdr-ic{width:36px;height:36px;border:none;background:rgba(255,255,255,.1);border-radius:50%;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 #screens{flex:1;overflow:hidden;position:relative}
 .screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;display:none;-webkit-overflow-scrolling:touch;background:var(--cream)}
 .screen.active{display:block;animation:fU .22s ease}
 @keyframes fU{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-#nav{height:var(--nav);background:#fff;flex-shrink:0;display:flex;align-items:stretch;border-top:1px solid var(--border);box-shadow:0 -2px 20px rgba(26,12,4,.07);padding-bottom:env(safe-area-inset-bottom);z-index:60}
-.ni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;cursor:pointer;color:var(--cream3);font-family:'Nunito',sans-serif;position:relative;padding:6px 0 4px;transition:color .2s}
+#nav{height:var(--nav);background:#fff;flex-shrink:0;display:flex;align-items:stretch;border-top:1px solid var(--border);box-shadow:0 -2px 20px rgba(43,40,41,.07);padding-bottom:env(safe-area-inset-bottom);z-index:60}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;cursor:pointer;color:#6B6769;font-family:'Nunito',sans-serif;position:relative;padding:6px 0 4px;transition:color .2s}
 .ni.on{color:var(--clay)}.ni .ic{font-size:22px;line-height:1;transition:transform .2s}.ni.on .ic{transform:scale(1.15)}
 .ni .lb{font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase}
 .ni-bar{position:absolute;top:0;left:50%;transform:translateX(-50%);width:24px;height:3px;background:var(--clay);border-radius:0 0 4px 4px;opacity:0;transition:.2s}.ni.on .ni-bar{opacity:1}
 .fab-slot{flex:1;display:flex;align-items:center;justify-content:center}
-.fab{width:52px;height:52px;border-radius:50%;background:linear-gradient(145deg,var(--clay),var(--clay2));border:none;color:#fff;font-size:24px;cursor:pointer;box-shadow:0 4px 18px rgba(196,85,42,.45);display:flex;align-items:center;justify-content:center;margin-top:-18px;transition:.2s}
-.fab:active{transform:scale(.92)}
-.hero{background:linear-gradient(155deg,var(--ink) 0%,var(--ink2) 55%,#5E2A0C 100%);padding:22px 20px 28px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 50%,rgba(212,146,42,.12),transparent 60%)}
-.hero-tag{font-size:11px;font-weight:800;color:rgba(255,255,255,.45);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
-.hero-h{font-family:'Playfair Display',serif;font-size:26px;color:#fff;margin-bottom:18px;line-height:1.2}
-.hero-h em{font-style:italic;color:var(--gold2)}
+.fab{width:52px;height:52px;border-radius:50%;background:linear-gradient(145deg,var(--clay),var(--clay2));border:none;color:#fff;font-size:24px;cursor:pointer;box-shadow:0 4px 18px rgba(221,89,4,.45);display:flex;align-items:center;justify-content:center;margin-top:-18px;transition:.2s}
+.fab:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(221,89,4,.5)}.fab:active{transform:scale(.92)}.ni .ic svg{width:22px;height:22px;display:block}
+.hero{background:linear-gradient(180deg,#2F2D2E 0%,#474546 100%);border-bottom:5px solid #DD5904;padding:18px 20px 30px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 50%,rgba(221,89,4,.12),transparent 60%)}
+.hero-tag{font-size:12px;font-weight:800;color:#CFCBCA;letter-spacing:2.4px;text-transform:uppercase;margin-bottom:4px}
+.hero-h{font-family:'Playfair Display',serif;font-size:32px;color:#fff;margin-bottom:18px;line-height:1.2}
+.hero-h em{font-style:italic;color:#F26A12}
 .s2x2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.sp{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:var(--r2);padding:12px 14px;backdrop-filter:blur(8px)}
-.sp.ac{background:rgba(212,146,42,.18);border-color:rgba(212,146,42,.25)}
-.sp-n{font-size:28px;font-weight:900;color:#fff;line-height:1}.sp.ac .sp-n{color:var(--gold2)}
-.sp-l{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);margin-top:2px;letter-spacing:.3px;text-transform:uppercase}
+.sp{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:14px 16px;backdrop-filter:blur(8px)}
+.sp.ac{background:rgba(221,89,4,.16);border-color:rgba(221,89,4,.4)}
+.sp-n{font-size:32px;font-weight:800;color:#fff;line-height:1}.sp.ac .sp-n{color:var(--gold2)}
+.sp-l{font-size:11px;font-weight:800;color:#CFCBCA;margin-top:4px;letter-spacing:1.2px;text-transform:uppercase}
 .sh2{display:flex;align-items:center;justify-content:space-between;padding:20px 18px 10px}
 .sh2 h3{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
-.sh2 a{font-size:13px;font-weight:700;color:var(--clay);cursor:pointer}
-.qc{margin:0 14px 12px;background:#fff;border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--border);cursor:pointer;transition:.15s;overflow:hidden}
+.sh2 a{font-size:14px;font-weight:800;color:#C24E00;cursor:pointer}.sh2 a:hover{text-decoration:underline}
+.qc{margin:0 14px 12px;background:#fff;border-radius:18px;box-shadow:var(--sh);border:1px solid var(--border);cursor:pointer;transition:.15s;overflow:hidden}
 .qc:active{transform:scale(.98)}.qc-t{padding:13px 15px 10px;display:flex;justify-content:space-between;align-items:flex-start}
-.qc-id{font-size:11px;font-weight:900;color:var(--clay)}.qc-name{font-size:16px;font-weight:800;color:var(--ink);margin-top:1px}
+.qc-id{font-size:12px;font-weight:800;color:#C24E00}.qc-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ink);margin-top:1px}
 .qc-sub{font-size:12px;color:var(--muted);margin-top:3px}
 .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:30px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.4px;flex-shrink:0}
-.bd{background:#F0E8D6;color:var(--muted)}.bs{background:#E0ECFF;color:var(--blue)}
-.bc{background:#E0F2E8;color:var(--green)}.bi{background:rgba(196,85,42,.1);color:var(--clay)}.bp{background:#E0F2E8;color:var(--green)}
+.bd{background:#ECE9E8;color:var(--muted)}.bs{background:#E0ECFF;color:var(--blue)}
+.bc{background:#E3F1E9;color:#1F6B44}.bi{background:rgba(221,89,4,.1);color:var(--clay)}.bp{background:#E0F2E8;color:var(--green)}
 .qc-b{padding:9px 15px;background:var(--cream2);display:flex;justify-content:space-between;align-items:center}
 .qc-amt{font-size:17px;font-weight:900;color:var(--ink)}.qc-amt span{font-size:12px;font-weight:600;color:var(--muted)}
 .qc-pax{font-size:12px;color:var(--muted);font-weight:600}
 .qc-btns{display:flex;gap:5px;padding:0 15px 12px;flex-wrap:wrap}
 .qb{flex:1;min-width:60px;padding:8px 4px;border-radius:var(--r3);border:none;font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:3px;transition:.15s}
 .qb-v{background:var(--cream2);color:var(--ink)}.qb-w{background:#E8F5E9;color:var(--green)}
-.qb-i{background:rgba(212,146,42,.15);color:#7A5208}
+.qb-i{background:rgba(221,89,4,.15);color:#A84300}
 .qb-e{background:#EAF0FF;color:var(--blue)}
 .qb-d{background:rgba(192,57,43,.08);color:var(--red)}
 .empty{margin:16px 14px;background:#fff;border-radius:var(--r);border:1px solid var(--border);padding:36px 20px;text-align:center}
@@ -109,7 +111,7 @@ body{font-family:'Nunito',sans-serif;color:var(--ink);font-size:15px;line-height
 .pid{width:28px;height:28px;border:none;background:rgba(192,57,43,.1);color:var(--red);border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
 .pps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
 .pp{padding:5px 11px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid var(--border);background:#fff;color:var(--muted);font-family:'Nunito',sans-serif;transition:.15s}
-.pp.on{border-color:var(--clay);background:rgba(196,85,42,.08);color:var(--clay)}
+.pp.on{border-color:var(--clay);background:rgba(221,89,4,.08);color:var(--clay)}
 .add-r{width:100%;padding:12px;border:2px dashed var(--border);border-radius:var(--r);background:none;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--clay);cursor:pointer;margin-top:4px;text-align:center}
 .fd{width:100%;padding:18px;border:2px dashed var(--border);border-radius:var(--r);text-align:center;cursor:pointer;background:var(--cream2);transition:.2s}
 .fd.hs{border-color:var(--green);background:rgba(42,122,80,.05)}
@@ -126,14 +128,14 @@ body{font-family:'Nunito',sans-serif;color:var(--ink);font-size:15px;line-height
 .rr-sub{display:flex;justify-content:space-between;padding:3px 0 3px 14px;font-size:12px;border-bottom:1px solid rgba(255,255,255,.05)}
 .rr-sub .rl{color:rgba(255,255,255,.45);font-size:11.5px}.rr-sub .rv{font-weight:600;font-size:11.5px}
 .rr-sep{height:1px;background:rgba(255,255,255,.15);margin:8px 0 4px}
-.rw{background:rgba(212,146,42,.18);border-radius:var(--r3);padding:9px 13px;font-size:11px;color:var(--gold2);font-style:italic;margin-top:12px;line-height:1.5}
-.wfoot{position:fixed;bottom:var(--nav);left:0;right:0;background:#fff;border-top:1px solid var(--border);padding:11px 16px;display:flex;gap:10px;z-index:20;box-shadow:0 -3px 16px rgba(26,12,4,.07)}
+.rw{background:rgba(221,89,4,.18);border-radius:var(--r3);padding:9px 13px;font-size:11px;color:var(--gold2);font-style:italic;margin-top:12px;line-height:1.5}
+.wfoot{position:fixed;bottom:var(--nav);left:0;right:0;background:#fff;border-top:1px solid var(--border);padding:11px 16px;display:flex;gap:10px;z-index:20;box-shadow:0 -3px 16px rgba(43,40,41,.07)}
 .wfb{flex:1;padding:14px;border-radius:var(--r);border:none;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;gap:6px}
 .wfb:active{transform:scale(.97)}.wf-bk{background:var(--cream2);color:var(--ink2)}.wf-nx{background:var(--clay);color:#fff}
 .wf-gn{background:linear-gradient(135deg,var(--clay),var(--clay2));color:#fff;flex:2}
 .htabs{display:flex;gap:8px;padding:15px 15px 0}
 .ht{flex:1;padding:10px;border:2px solid var(--border);border-radius:var(--r2);background:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;text-align:center;transition:.2s}
-.ht.on{border-color:var(--clay);background:rgba(196,85,42,.07);color:var(--clay)}
+.ht.on{border-color:var(--clay);background:rgba(221,89,4,.07);color:var(--clay)}
 .sw{padding:11px 15px}
 .sr{width:100%;padding:11px 14px 11px 40px;border:2px solid var(--border);border-radius:30px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%238A6540' stroke-width='2.5' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E") no-repeat 14px center;transition:.2s}
 .sr:focus{outline:none;border-color:var(--clay)}
@@ -205,27 +207,37 @@ body{font-family:'Nunito',sans-serif;color:var(--ink);font-size:15px;line-height
 .ed-row input[type="date"]:focus{outline:none;border-color:var(--clay)}
 
 /* ── LOGIN OVERLAY ── */
-#login-overlay{position:fixed;inset:0;background:linear-gradient(180deg,#FFFBF4 0%,#FDF6EE 100%);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+#login-overlay{position:fixed;inset:0;background:#2F2D2E;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:0 0 28px;overflow-y:auto}
+#login-overlay::before{content:'';position:absolute;top:-140px;left:50%;margin-left:-260px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(221,89,4,.38),rgba(221,89,4,0) 68%);pointer-events:none}
 #login-overlay.hidden{display:none}
-.login-card{background:#fff;border-radius:20px;padding:28px 22px;width:100%;max-width:380px;box-shadow:0 10px 30px rgba(196,85,42,.15)}
-.login-brand{text-align:center;margin-bottom:22px}
-.login-brand img{width:64px;height:64px;border-radius:14px;border:1.5px solid #E2D0B8;object-fit:contain;margin-bottom:10px}
-.login-brand h1{font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:700;color:#1A0C04;letter-spacing:-.5px}
-.login-brand .sub{font-size:11px;color:#C4552A;font-weight:800;letter-spacing:1.5px;margin-top:3px}
-.login-tabs{display:flex;gap:8px;background:#FDF6EE;border-radius:30px;padding:4px;margin-bottom:18px}
-.login-tab{flex:1;padding:10px;border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:#8A6540;cursor:pointer;border-radius:24px;transition:.2s}
-.login-tab.active{background:#C4552A;color:#fff;box-shadow:0 2px 8px rgba(196,85,42,.3)}
-.login-field{margin-bottom:12px}
-.login-field label{display:block;font-size:10px;font-weight:900;color:#8A6540;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.login-field input{width:100%;padding:13px 14px;border:2px solid #E2D0B8;border-radius:12px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:600;color:#1A0C04;box-sizing:border-box;transition:.2s}
-.login-field input:focus{outline:none;border-color:#C4552A}
-.login-btn{width:100%;padding:14px;border-radius:30px;border:none;background:#C4552A;color:#fff;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;margin-top:8px;box-shadow:0 4px 14px rgba(196,85,42,.3);transition:.2s}
+.login-brand{position:relative;width:100%;box-sizing:border-box;text-align:center;background:#474546;border-bottom:5px solid #DD5904;border-radius:0 0 36px 36px;padding:56px 20px 96px;flex-shrink:0}
+.login-brand img{width:190px;height:76px;object-fit:contain;display:block;margin:0 auto}
+.login-brand .sub{font-size:12px;color:#FFB07A;font-weight:800;letter-spacing:3px;margin-top:12px}
+.login-brand .tag{font-size:13px;color:#D9D6D5;margin-top:6px}
+.login-card{position:relative;background:#fff;border-radius:24px;padding:26px 24px 22px;width:calc(100% - 44px);max-width:380px;box-shadow:0 24px 48px rgba(0,0,0,.35);margin-top:-64px;flex-shrink:0}
+.login-card h1{font-family:'Playfair Display',Georgia,serif;font-size:28px;font-weight:700;color:#2B2829}
+.login-card .lc-s{font-size:14px;color:#6B6769;margin:4px 0 18px}
+.login-tabs{display:flex;background:#F5F3F2;border-radius:999px;padding:4px;margin-bottom:18px}
+.login-tab{flex:1;height:42px;border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:#6B6769;cursor:pointer;border-radius:999px;transition:.2s}
+.login-tab:hover{color:#2B2829}
+.login-tab.active{background:#474546;color:#fff}
+.login-field{margin-bottom:14px}
+.login-field label{display:block;font-size:11px;font-weight:800;color:#474546;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.login-field input{width:100%;height:52px;padding:0 14px 0 44px;border:1.5px solid #E3DFDD;border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:600;color:#2B2829;box-sizing:border-box;background-color:#fff;background-repeat:no-repeat;background-position:14px center;background-size:18px;transition:border-color .15s,box-shadow .15s}
+#ur-email{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B6769' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Cpath d='m3 7 9 6 9-6'/%3E%3C/svg%3E")}
+#ur-pw{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B6769' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='11' width='16' height='10' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E")}
+.login-field input:focus{outline:none;border-color:#DD5904;box-shadow:0 0 0 4px rgba(221,89,4,.16)}
+.login-btn{width:100%;height:56px;border-radius:999px;border:none;background:#DD5904;color:#fff;font-family:'Nunito',sans-serif;font-size:19px;font-weight:800;cursor:pointer;margin-top:8px;box-shadow:0 8px 18px rgba(221,89,4,.35);display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+.login-btn::after{content:'\2192';display:inline-block;transition:transform .18s ease}
+.login-btn:hover:not(:disabled){background:#B84700;transform:translateY(-2px);box-shadow:0 14px 26px rgba(221,89,4,.45)}
+.login-btn:hover:not(:disabled)::after{transform:translateX(5px)}
+.login-btn:active:not(:disabled){transform:translateY(0);box-shadow:0 4px 10px rgba(221,89,4,.35)}
 .login-btn:disabled{opacity:.5;cursor:not-allowed}
-.login-btn:hover:not(:disabled){background:#A8451F}
-.login-err{background:#FFE4DC;color:#A8451F;padding:10px 12px;border-radius:10px;font-size:12px;font-weight:700;margin-top:10px;display:none;border-left:3px solid #C0392B}
+.login-err{background:#FFE4DC;color:#B84700;padding:10px 12px;border-radius:10px;font-size:12px;font-weight:700;margin-top:10px;display:none;border-left:3px solid #C0392B}
 .login-err.show{display:block}
-.login-info{font-size:11px;color:#8A6540;text-align:center;margin-top:12px;line-height:1.5}
-.login-footer{text-align:center;margin-top:14px;font-size:11px;color:#8A6540;font-weight:700}
+.login-info{font-size:14px;text-align:center;margin-top:16px;line-height:1.5}
+.login-info a:hover{text-decoration:underline}
+.login-footer{position:relative;text-align:center;margin-top:22px;font-size:12.5px;color:#D9D6D5;font-weight:600;padding:0 20px;flex-shrink:0}
 .logout-btn{background:none;border:none;color:#fff;font-size:18px;cursor:pointer;padding:5px 6px;margin-left:4px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:background .15s}
 .logout-btn:hover{background:rgba(255,255,255,.08)}
 .logout-btn:active{transform:scale(.94)}
@@ -237,7 +249,7 @@ body{font-family:'Nunito',sans-serif;color:var(--ink);font-size:15px;line-height
 .cu-h span{font-size:12px;font-weight:800;color:var(--muted)}
 .cu{margin:0 14px 10px;background:#fff;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--sh);padding:13px 14px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:.15s}
 .cu:active{transform:scale(.99)}
-.cu-av{width:42px;height:42px;border-radius:50%;background:rgba(196,85,42,.1);color:var(--clay);font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cu-av{width:42px;height:42px;border-radius:50%;background:rgba(221,89,4,.1);color:var(--clay);font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .cu-av.big{width:54px;height:54px;font-size:22px}
 .cu-main{flex:1;min-width:0}
 .cu-name{font-size:16px;font-weight:800;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -264,7 +276,7 @@ body{font-family:'Nunito',sans-serif;color:var(--ink);font-size:15px;line-height
 .ev-id{font-size:13px;font-weight:900;color:var(--clay)}
 .ev-am{font-size:14px;font-weight:900;color:var(--ink);text-align:right}
 .ev-pdf{margin-top:5px;border:none;background:var(--clay);color:#fff;border-radius:30px;padding:5px 12px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;cursor:pointer}
-.user-chip{background:rgba(255,255,255,.18);color:#fff;font-size:10px;font-weight:800;padding:4px 9px;border-radius:20px;letter-spacing:.3px}
+.user-chip{background:rgba(255,255,255,.12);color:#fff;font-size:12px;font-weight:800;padding:4px 9px;border-radius:20px;letter-spacing:.3px}
 </style>
 </head>
 <body>
@@ -347,29 +359,31 @@ window.dispatchEvent(new Event('urFBReady'));
 
 <!-- ── LOGIN OVERLAY (shown until user authenticates) ── -->
 <div id="login-overlay">
+  <div class="login-brand">
+    <img id="login-logo" src="" alt="Urban Roti Indian Grill and Bar" onerror="this.style.display='none'">
+    <div class="sub">CATERING &amp; EVENTS</div>
+    <div class="tag">Quotations · Invoices · Customers</div>
+  </div>
   <div class="login-card">
-    <div class="login-brand">
-      <img id="login-logo" src="" alt="UR" onerror="this.style.display='none'">
-      <h1>Urban Roti</h1>
-      <div class="sub">CATERING &amp; EVENTS</div>
-    </div>
+    <h1>Welcome back</h1>
+    <p class="lc-s">Sign in to manage your catering orders.</p>
     <div class="login-tabs">
       <button class="login-tab active" id="tab-signin" onclick="urSetTab('signin')">Sign In</button>
       <button class="login-tab" id="tab-signup" onclick="urSetTab('signup')">Sign Up</button>
     </div>
     <div class="login-field">
-      <label>Email</label>
+      <label for="ur-email">Email</label>
       <input id="ur-email" type="email" autocomplete="email" placeholder="you@example.com">
     </div>
     <div class="login-field">
-      <label>Password</label>
+      <label for="ur-pw">Password</label>
       <input id="ur-pw" type="password" autocomplete="current-password" placeholder="Minimum 6 characters">
     </div>
     <button class="login-btn" id="ur-submit" onclick="urDoAuth()">Sign In</button>
     <div class="login-err" id="ur-err"></div>
-    <div class="login-info" id="ur-info"><a href="#" onclick="urForgotPw();return false" style="color:#C4552A;font-weight:700;text-decoration:none">Forgot password?</a></div>
-    <div class="login-footer">Your data is securely stored in your account</div>
+    <div class="login-info" id="ur-info"><a href="#" onclick="urForgotPw();return false" style="color:#C24E00;font-weight:700;text-decoration:none">Forgot password?</a></div>
   </div>
+  <div class="login-footer">Your data is securely stored in your account</div>
 </div>
 
 <div id="app">
@@ -380,7 +394,7 @@ window.dispatchEvent(new Event('urFBReady'));
     </div>
     <div style="display:flex;align-items:center">
       <span class="user-chip" id="user-chip" style="display:none"></span>
-      <button class="hdr-ic" onclick="go('history')">📋</button>
+      <button class="hdr-ic" onclick="go('history')" aria-label="Records"><span style="width:18px;height:18px;display:block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/></svg></span></button>
       <button class="logout-btn" id="sync-btn" onclick="urSyncNow()" title="Sync to cloud" style="display:none"><img src="data:image/png;base64,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" alt="Sync" style="width:21px;height:21px;vertical-align:middle;display:block"></button>
       <button class="logout-btn" id="logout-btn" onclick="urLogout()" title="Sign out" style="display:none"><img src="data:image/png;base64,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" alt="Sign out" style="width:22px;height:22px;vertical-align:middle;display:block"></button>
     </div>
@@ -436,10 +450,10 @@ window.dispatchEvent(new Event('urFBReady'));
     </div>
   </div>
   <div id="nav">
-    <button class="ni on" id="n-home" onclick="go('home')"><div class="ni-bar"></div><div class="ic">🏠</div><div class="lb">Home</div></button>
-    <button class="ni" id="n-history" onclick="go('history')"><div class="ni-bar"></div><div class="ic">📋</div><div class="lb">Records</div></button>
-    <div class="fab-slot"><button class="fab" onclick="newQ()">✦</button></div>
-    <button class="ni" id="n-customers" onclick="go('customers')"><div class="ni-bar"></div><div class="ic">👥</div><div class="lb">Customers</div></button>
+    <button class="ni on" id="n-home" onclick="go('home')"><div class="ni-bar"></div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></div><div class="lb">Home</div></button>
+    <button class="ni" id="n-history" onclick="go('history')"><div class="ni-bar"></div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/></svg></div><div class="lb">Records</div></button>
+    <div class="fab-slot"><button class="fab" onclick="newQ()" aria-label="New quotation"><span style="width:28px;height:28px;display:block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></button></div>
+    <button class="ni" id="n-customers" onclick="go('customers')"><div class="ni-bar"></div><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.8c2 .6 3.3 2.3 3.6 5.2"/></svg></div><div class="lb">Customers</div></button>
   </div>
 </div>
 <div class="bd2" id="bd" onclick="cSheet()"></div>
@@ -640,7 +654,7 @@ function s0(){
   var mins=['00','05','10','15','20','25','30','35','40','45','50','55'];
   var hOpts=hrs.map(function(h){return '<option value="'+h+'" '+(parseInt(ts12.h)===h?'selected':'')+'>'+h+'</option>';}).join('');
   var mOpts=mins.map(function(m){return '<option value="'+m+'" '+(ts12.m===m?'selected':'')+'>'+m+'</option>';}).join('');
-  var invDateBlock=editingInvId?('<div class="fld" style="background:#FDF6EE;border:1.5px solid #E2D0B8;border-radius:12px;padding:12px 14px;margin-bottom:14px"><label>Invoice Date *</label><input id="inv-date" type="date" value="'+(wd.invDate||'')+'"></div>'):'';
+  var invDateBlock=editingInvId?('<div class="fld" style="background:#F5F3F2;border:1.5px solid #E3DFDD;border-radius:12px;padding:12px 14px;margin-bottom:14px"><label>Invoice Date *</label><input id="inv-date" type="date" value="'+(wd.invDate||'')+'"></div>'):'';
   return (
     invDateBlock
     +'<div class="r2">'
@@ -840,8 +854,8 @@ function oSheet(id,type){
          +'</div>'
          +(adv>0
            ?(balDiff>0
-             ?'<div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid #A8D8BE;font-size:13px;font-weight:700"><span style="color:#8A6540">Balance Payable</span><span style="color:#C0392B">S$ '+balDiff.toFixed(2)+'</span></div>'
-             :'<div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid #A8D8BE;font-size:13px;font-weight:700"><span style="color:#8A6540">Refund Amount</span><span style="color:#1A6BBF">S$ '+Math.abs(balDiff).toFixed(2)+'</span></div>'
+             ?'<div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid #A8D8BE;font-size:13px;font-weight:700"><span style="color:#6B6769">Balance Payable</span><span style="color:#C0392B">S$ '+balDiff.toFixed(2)+'</span></div>'
+             :'<div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid #A8D8BE;font-size:13px;font-weight:700"><span style="color:#6B6769">Refund Amount</span><span style="color:#1A6BBF">S$ '+Math.abs(balDiff).toFixed(2)+'</span></div>'
            )
            :'')
       )
@@ -881,7 +895,7 @@ function saveAdvPay(id){
 }
 
 // ── DOCUMENT MINI (sheet preview) ──
-function docMini(obj,type){const isQ=type==='quote';const items=obj.pricingItems||(obj.unitPrice?[{packageName:obj.menuName||'Catering',unitPrice:obj.unitPrice,qty:(obj.pax?.adults||0)+(obj.pax?.kids||0),amount:obj.foodTotal||0}]:[]);const addc=obj.additionalCosts||[];const ml=obj.menuFile?`<br><a href="${obj.menuFile.data}" target="_blank" style="color:#C4552A;font-size:9px">📎 ${obj.menuFile.name}</a>`:'';const rows=items.map((it,i)=>`<tr><td><b>${it.packageName}</b>${i===0?ml:''}</td><td>${it.qty}</td><td>S$ ${(+it.unitPrice||0).toFixed(2)}</td><td>S$ ${(+it.amount||0).toFixed(2)}</td></tr>`).join('');const arows=addc.map(c=>`<tr><td colspan="3">${c.description||c.d||'Charge'}</td><td>S$ ${(+c.amount||+c.a||0).toFixed(2)}</td></tr>`).join('');const tl=(obj.terms||TERMS).split('\n').filter(l=>l.trim()).map(l=>`<li>${l.replace(/^\d+\.\s*/,'')}</li>`).join('');const tr2=obj.timeStart?`${t12(obj.timeStart)}${obj.timeEnd?' – '+t12(obj.timeEnd):''}`:'-';
+function docMini(obj,type){const isQ=type==='quote';const items=obj.pricingItems||(obj.unitPrice?[{packageName:obj.menuName||'Catering',unitPrice:obj.unitPrice,qty:(obj.pax?.adults||0)+(obj.pax?.kids||0),amount:obj.foodTotal||0}]:[]);const addc=obj.additionalCosts||[];const ml=obj.menuFile?`<br><a href="${obj.menuFile.data}" target="_blank" style="color:#C24E00;font-size:9px">📎 ${obj.menuFile.name}</a>`:'';const rows=items.map((it,i)=>`<tr><td><b>${it.packageName}</b>${i===0?ml:''}</td><td>${it.qty}</td><td>S$ ${(+it.unitPrice||0).toFixed(2)}</td><td>S$ ${(+it.amount||0).toFixed(2)}</td></tr>`).join('');const arows=addc.map(c=>`<tr><td colspan="3">${c.description||c.d||'Charge'}</td><td>S$ ${(+c.amount||+c.a||0).toFixed(2)}</td></tr>`).join('');const tl=(obj.terms||TERMS).split('\n').filter(l=>l.trim()).map(l=>`<li>${l.replace(/^\d+\.\s*/,'')}</li>`).join('');const tr2=obj.timeStart?`${t12(obj.timeStart)}${obj.timeEnd?' – '+t12(obj.timeEnd):''}`:'-';
   // Multi-date display
   const eventDates=obj.eventDates&&obj.eventDates.length?obj.eventDates:[obj.eventDate];
   const dateDisplay=eventDates.filter(Boolean).map(d=>fdl(d)).join(' &amp; ')||'—';
@@ -1218,8 +1232,8 @@ async function addMenuTextPageToPDF(pdf,obj,headerData,hdrH,pdfW,pdfH,gapH,foote
   // Render menu content as an image (same 794px width as main doc)
   var mWrap=document.createElement('div');
   mWrap.style.cssText='position:fixed;left:-9999px;top:0;width:690px;background:#fff;font-family:Arial,Helvetica,sans-serif;padding:0;box-sizing:border-box;';
-  mWrap.innerHTML='<div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#C24E00;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #C4552A">Menu Details</div>'
-    +'<div style="font-size:13px;white-space:pre-wrap;line-height:1.9;color:#1A0C04">'+obj.menuText+'</div>';
+  mWrap.innerHTML='<div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#C24E00;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #DD5904">Menu Details</div>'
+    +'<div style="font-size:13px;white-space:pre-wrap;line-height:1.9;color:#2B2829">'+obj.menuText+'</div>';
   document.body.appendChild(mWrap);
   await new Promise(r=>setTimeout(r,150));
   try{
@@ -1462,13 +1476,13 @@ function promptMkInv(qid){
   modal.id='inv-num-modal';
   modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
   modal.innerHTML='<div style="background:#fff;border-radius:16px;padding:24px 20px;width:100%;max-width:360px;box-shadow:0 8px 32px rgba(0,0,0,.3)">'
-    +'<div style="font-size:17px;font-weight:900;color:#1A0C04;margin-bottom:4px">Create Invoice</div>'
-    +'<div style="font-size:13px;color:#8A6540;margin-bottom:18px">Enter a custom invoice number or use the suggested one.</div>'
-    +'<div style="margin-bottom:18px"><label style="font-size:11px;font-weight:900;color:#8A6540;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:5px">Invoice Number</label>'
-    +'<input id="inv-num-input" type="text" value="'+autoId+'" style="width:100%;padding:12px 14px;border:2px solid #E2D0B8;border-radius:12px;font-family:Nunito,sans-serif;font-size:16px;font-weight:700;color:#1A0C04;box-sizing:border-box"></div>'
+    +'<div style="font-size:17px;font-weight:900;color:#2B2829;margin-bottom:4px">Create Invoice</div>'
+    +'<div style="font-size:13px;color:#6B6769;margin-bottom:18px">Enter a custom invoice number or use the suggested one.</div>'
+    +'<div style="margin-bottom:18px"><label style="font-size:11px;font-weight:900;color:#6B6769;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:5px">Invoice Number</label>'
+    +'<input id="inv-num-input" type="text" value="'+autoId+'" style="width:100%;padding:12px 14px;border:2px solid #E3DFDD;border-radius:12px;font-family:Nunito,sans-serif;font-size:16px;font-weight:700;color:#2B2829;box-sizing:border-box"></div>'
     +'<div style="display:flex;gap:10px">'
-    +'<button onclick="document.getElementById(\'inv-num-modal\').remove()" style="flex:1;padding:12px;border-radius:30px;border:2px solid #E2D0B8;background:#fff;font-family:Nunito,sans-serif;font-size:14px;font-weight:800;color:#8A6540;cursor:pointer">Cancel</button>'
-    +'<button onclick="confirmMkInv(\''+qid+'\')" style="flex:2;padding:12px;border-radius:30px;border:none;background:#C4552A;color:#fff;font-family:Nunito,sans-serif;font-size:14px;font-weight:800;cursor:pointer">✅ Create Invoice</button>'
+    +'<button onclick="document.getElementById(\'inv-num-modal\').remove()" style="flex:1;padding:12px;border-radius:30px;border:2px solid #E3DFDD;background:#fff;font-family:Nunito,sans-serif;font-size:14px;font-weight:800;color:#6B6769;cursor:pointer">Cancel</button>'
+    +'<button onclick="confirmMkInv(\''+qid+'\')" style="flex:2;padding:12px;border-radius:30px;border:none;background:#DD5904;color:#fff;font-family:Nunito,sans-serif;font-size:14px;font-weight:800;cursor:pointer">✅ Create Invoice</button>'
     +'</div></div>';
   document.body.appendChild(modal);
   setTimeout(function(){var inp=document.getElementById('inv-num-input');if(inp){inp.focus();inp.select();}},120);
@@ -1490,13 +1504,13 @@ function promptMkQuote(){
   modal.id='quote-num-modal';
   modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
   modal.innerHTML='<div style="background:#fff;border-radius:16px;padding:24px 20px;width:100%;max-width:360px;box-shadow:0 8px 32px rgba(0,0,0,.3)">'
-    +'<div style="font-size:17px;font-weight:900;color:#1A0C04;margin-bottom:4px">Create Quotation</div>'
-    +'<div style="font-size:13px;color:#8A6540;margin-bottom:18px">Enter a custom quotation number or use the suggested one.</div>'
-    +'<div style="margin-bottom:18px"><label style="font-size:11px;font-weight:900;color:#8A6540;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:5px">Quotation Number</label>'
-    +'<input id="quote-num-input" type="text" value="'+autoId+'" style="width:100%;padding:12px 14px;border:2px solid #E2D0B8;border-radius:12px;font-family:Nunito,sans-serif;font-size:16px;font-weight:700;color:#1A0C04;box-sizing:border-box"></div>'
+    +'<div style="font-size:17px;font-weight:900;color:#2B2829;margin-bottom:4px">Create Quotation</div>'
+    +'<div style="font-size:13px;color:#6B6769;margin-bottom:18px">Enter a custom quotation number or use the suggested one.</div>'
+    +'<div style="margin-bottom:18px"><label style="font-size:11px;font-weight:900;color:#6B6769;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:5px">Quotation Number</label>'
+    +'<input id="quote-num-input" type="text" value="'+autoId+'" style="width:100%;padding:12px 14px;border:2px solid #E3DFDD;border-radius:12px;font-family:Nunito,sans-serif;font-size:16px;font-weight:700;color:#2B2829;box-sizing:border-box"></div>'
     +'<div style="display:flex;gap:10px">'
-    +'<button onclick="document.getElementById(\'quote-num-modal\').remove()" style="flex:1;padding:12px;border-radius:30px;border:2px solid #E2D0B8;background:#fff;font-family:Nunito,sans-serif;font-size:14px;font-weight:800;color:#8A6540;cursor:pointer">Cancel</button>'
-    +'<button onclick="confirmMkQuote()" style="flex:2;padding:12px;border-radius:30px;border:none;background:#C4552A;color:#fff;font-family:Nunito,sans-serif;font-size:14px;font-weight:800;cursor:pointer">📋 Create Quotation</button>'
+    +'<button onclick="document.getElementById(\'quote-num-modal\').remove()" style="flex:1;padding:12px;border-radius:30px;border:2px solid #E3DFDD;background:#fff;font-family:Nunito,sans-serif;font-size:14px;font-weight:800;color:#6B6769;cursor:pointer">Cancel</button>'
+    +'<button onclick="confirmMkQuote()" style="flex:2;padding:12px;border-radius:30px;border:none;background:#DD5904;color:#fff;font-family:Nunito,sans-serif;font-size:14px;font-weight:800;cursor:pointer">📋 Create Quotation</button>'
     +'</div></div>';
   document.body.appendChild(modal);
   setTimeout(function(){var inp=document.getElementById('quote-num-input');if(inp){inp.focus();inp.select();}},120);
@@ -1866,7 +1880,7 @@ function urShowLogin(){
   document.getElementById('ur-pw').value = '';
   urClearErr();
   var info = document.getElementById('ur-info');
-  info.innerHTML = '<a href="#" onclick="urForgotPw();return false" style="color:#C4552A;font-weight:700;text-decoration:none">Forgot password?</a>';
+  info.innerHTML = '<a href="#" onclick="urForgotPw();return false" style="color:#C24E00;font-weight:700;text-decoration:none">Forgot password?</a>';
   // Reset submit button
   var btn = document.getElementById('ur-submit');
   btn.disabled = false;
