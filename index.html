@@ -1635,11 +1635,21 @@ function renderCustDetail(){
   dv.innerHTML=h;
 }
 
+// Sort helper for Records tab: newest date first (ties: newest created / highest ID first)
+function histSortDesc(dateKey){
+  return function(a,b){
+    var da=String(a[dateKey]||a.createdAt||'').slice(0,10),db=String(b[dateKey]||b.createdAt||'').slice(0,10);
+    if(da!==db)return db.localeCompare(da);
+    var ca=String(a.createdAt||''),cb=String(b.createdAt||'');
+    if(ca!==cb)return cb.localeCompare(ca);
+    return String(b.id||'').localeCompare(String(a.id||''),undefined,{numeric:true});
+  };
+}
 function renderHist(){
   var s=(document.getElementById('hsrch')?.value||'').toLowerCase();
   var c=document.getElementById('hist-list');
   if(hTab==='q'){
-    var qs=DB.quotes().filter(function(q){return !s||q.id.toLowerCase().includes(s)||(q.customer?.name||'').toLowerCase().includes(s)});
+    var qs=DB.quotes().filter(function(q){return !s||q.id.toLowerCase().includes(s)||(q.customer?.name||'').toLowerCase().includes(s)}).sort(histSortDesc('createdAt'));
     if(!qs.length){c.innerHTML='<div class="empty"><div class="empty-ic">📋</div><div class="empty-tx">No quotations yet.<br>Tap ✦ to create your first quote.</div></div>';return}
     c.innerHTML=qs.map(function(q){
       var sub='📅 '+(q.eventDates&&q.eventDates.length>1?q.eventDates.map(fd).join(' & '):fd(q.eventDate))+(q.timeStart?' · '+t12(q.timeStart):'')+(q.slot?' · '+q.slot:'');
@@ -1663,7 +1673,7 @@ function renderHist(){
         +'</div></div>';
     }).join('');
   } else {
-    var is=DB.invs().filter(function(i){return !s||i.id.toLowerCase().includes(s)||(i.customer?.name||'').toLowerCase().includes(s)});
+    var is=DB.invs().filter(function(i){return !s||i.id.toLowerCase().includes(s)||(i.customer?.name||'').toLowerCase().includes(s)}).sort(histSortDesc('invoiceDate'));
     if(!is.length){c.innerHTML='<div class="empty"><div class="empty-ic">🧾</div><div class="empty-tx">No invoices yet.</div></div>';return}
     c.innerHTML=is.map(function(inv){
       var sub='📅 '+(inv.eventDates&&inv.eventDates.length>1?inv.eventDates.map(fd).join(' & '):fd(inv.eventDate))+(inv.timeStart?' · '+t12(inv.timeStart):'')+(inv.slot?' · '+inv.slot:'');
