@@ -180,6 +180,12 @@ body{font-family:'Nunito',sans-serif;color:var(--ink);font-size:15px;line-height
 .dmte{margin-top:10px;border-top:1px solid var(--border);padding-top:8px}
 .dmte-t{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--clay);margin-bottom:4px}
 .dmte ol{padding-left:13px}.dmte li{font-size:9px;color:var(--muted);margin-bottom:2px;line-height:1.4}
+.dm{--ink:#474546;--ink2:#2B2829;--clay:#DD5904;--gold:#DD5904;--gold2:#FFB07A;--cream2:#F5F3F2;--muted:#6B6769;--border:#E3DFDD;color:#2B2829}
+.dm .dmh{background:#474546;margin:-14px -14px 11px;padding:12px 14px;border-bottom:3px solid #DD5904;border-radius:9px 9px 0 0}
+.dm .dmlb{width:84px;height:34px;background:none;border:0;border-radius:0}
+.dm .dmco{display:none}.dm .dmcs{color:#FFB07A}.dm .dmci{color:#D9D6D5}.dm .dmnu{color:#D9D6D5}
+.dm .dmp{border-left-color:#474546}.dm .dmp .dmpl{color:#474546}.dm .dmp.to{border-left-color:#DD5904}.dm .dmp.to .dmpl{color:#C24E00}
+.dm .dmte-t{color:#C24E00}
 .toasts{position:fixed;top:calc(var(--hdr) + 10px);left:12px;right:12px;z-index:999;display:flex;flex-direction:column;gap:7px;pointer-events:none}
 .toast{background:var(--ink);color:#fff;padding:12px 16px;border-radius:11px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;box-shadow:var(--sh2);animation:tIn .26s ease}
 .toast.ok{background:var(--green)}.toast.err{background:var(--red)}
@@ -883,7 +889,7 @@ function docMini(obj,type){const isQ=type==='quote';const items=obj.pricingItems
   const advPay=!isQ?(obj.advancePayment||0):0;
   const grandAmt=obj.grandTotal||0;
   const balDiff=grandAmt-advPay;
-  const advRows=!isQ&&advPay>0?`<div class="dmtr" style="background:#2A7A50"><span>Less: Advance</span><span>-S$ ${advPay.toFixed(2)}</span></div>`+(balDiff>0?`<div class="dmtr" style="background:#1A6BBF;font-weight:700"><span>BALANCE DUE</span><span>S$ ${balDiff.toFixed(2)}</span></div>`:`<div class="dmtr" style="background:#C0392B;font-weight:700"><span>${balDiff<0?'REFUND AMOUNT':'FULLY PAID'}</span><span>${balDiff<0?'S$ '+Math.abs(balDiff).toFixed(2):'✅'}</span></div>`):'';
+  const advRows=!isQ&&advPay>0?`<div class="dmtr" style="background:#2A7A50"><span>Less: Advance</span><span>-S$ ${advPay.toFixed(2)}</span></div>`+(balDiff>0?`<div class="dmtr" style="background:#474546;font-weight:700"><span>BALANCE DUE</span><span>S$ ${balDiff.toFixed(2)}</span></div>`:`<div class="dmtr" style="background:#C0392B;font-weight:700"><span>${balDiff<0?'REFUND AMOUNT':'FULLY PAID'}</span><span>${balDiff<0?'S$ '+Math.abs(balDiff).toFixed(2):'✅'}</span></div>`):'';
   return`<div class="dm" id="dm-r"><div class="dmh"><div class="dmlo"><div class="dmlb"><img src="${LOGO_B64}" style="width:100%;height:100%;object-fit:contain;padding:2px"></div><div><div class="dmco">Urban Roti</div><div class="dmcs">Catering & Events</div><div class="dmci">📞 +65 6209 5545 · urbanroti.com.sg</div></div></div><div><div class="dmty">${isQ?'Quotation':'Invoice'}</div><div class="dmnu">${obj.id}</div><div class="dmnu">${isQ?fdl(obj.createdAt?.split('T')[0]):fdl(obj.invoiceDate)}</div></div></div><div class="dmpar"><div class="dmp"><div class="dmpl">${isQ?'From':'Billed By'}</div><div class="dmpn">${isQ?obj.from?.name:'Urban Roti'}</div><div class="dmpi">${isQ?obj.from?.contact||'':''}</div></div><div class="dmp to"><div class="dmpl">${isQ?'Quotation For':'Billed To'}</div><div class="dmpn">${obj.customer?.name}</div><div class="dmpi">📱 ${obj.customer?.contact||''}</div>${obj.customer?.email?'<div class="dmpi">✉️ '+cEsc(obj.customer.email)+'</div>':''}</div></div><div class="dmev"><div><div class="dmel">Event Date${eventDates.filter(Boolean).length>1?'s':''}</div><div class="dmev2 hi">${dateDisplay}</div></div><div><div class="dmel">Slot</div><div class="dmev2">${obj.slot||'—'}</div></div><div><div class="dmel">Time</div><div class="dmev2">${tr2}</div></div><div><div class="dmel">Venue</div><div class="dmev2" style="font-size:9px">${obj.venue||'—'}</div></div></div><table class="dmt"><thead><tr><th>Package</th><th>Pax</th><th>Unit</th><th>Amount</th></tr></thead><tbody>${rows}${arows}</tbody></table><div style="display:flex;justify-content:flex-end;margin-bottom:8px"><div class="dmto"><div class="dmtr"><span>Food Cost</span><span>S$ ${(obj.foodTotal||0).toFixed(2)}</span></div>${(obj.addTotal||0)>0?`<div class="dmtr"><span>Additional</span><span>S$ ${obj.addTotal.toFixed(2)}</span></div>`:''}${(obj.discountAmount||0)>0?`<div class="dmtr" style="background:#EAF7EE"><span style="color:#2A7A50">Discount${obj.discount?.type==='pct'?' ('+obj.discount.value+'%)':''}  </span><span style="color:#2A7A50">-S$ ${(obj.discountAmount||0).toFixed(2)}</span></div>`:''}<div class="dmtr"><span>Subtotal</span><span>S$ ${(obj.subtotal||0).toFixed(2)}</span></div><div class="dmtr"><span>GST 9%</span><span>S$ ${(obj.gst||0).toFixed(2)}</span></div><div class="dmtr gd"><span>TOTAL</span><span>S$ ${(obj.grandTotal||0).toFixed(2)}</span></div>${advRows}${!isQ&&(obj.status==='paid'||(obj.advancePayment||0)>=(obj.grandTotal||0))?'<div class="dmtr" style="background:#2A7A50;font-size:11px;letter-spacing:1px;text-align:center;justify-content:center"><span>✅ FULLY PAID</span></div>':''}</div></div><div class="dmw"><b>Amount in Words:</b> ${words(obj.grandTotal||0)}</div><div class="dmte"><div class="dmte-t">Terms & Conditions</div><ol>${tl}</ol></div></div>`}
 
 // ── A4 DOCUMENT HTML GENERATOR (Grouped pricing, orange accents, larger fonts) ──
@@ -894,24 +900,24 @@ function genA4HTML(obj,type){
   var terms=(obj.terms||TERMS).split('\n').filter(function(l){return l.trim()});
   var tr2=obj.timeStart?t12(obj.timeStart):'--';
   var paxTotal=(obj.pax?.adults||0)+(obj.pax?.kids||0);
-  var ml=obj.menuFile?('<div style="margin-top:4px"><a href="'+obj.menuFile.data+'" style="color:#C4552A;font-size:11px">Menu: '+obj.menuFile.name+'</a></div>'):'';
+  var ml=obj.menuFile?('<div style="margin-top:4px"><a href="'+obj.menuFile.data+'" style="color:#C24E00;font-size:11px">Menu: '+obj.menuFile.name+'</a></div>'):'';
   var docTypeLabel=isQ?'QUOTATION':'INVOICE';
   var docDate=isQ?('Date: '+fdl(obj.createdAt?.split('T')[0])):('Invoice Date: '+fdl(obj.invoiceDate));
-  var quoteRefRow=isQ?'':('<div style="font-size:12px;color:#8A6540;font-weight:700">Quote Ref: '+(obj.quotationId||'--')+'</div>');
+  var quoteRefRow=isQ?'':('<div style="font-size:12px;color:#D9D6D5;font-weight:700">Quote Ref: '+(obj.quotationId||'--')+'</div>');
   var fromLabel=isQ?'From':'Billed By';
   var fromName=isQ?(obj.from?.name||''):'Urban Roti Catering';
   var fromContact=isQ?(obj.from?.contact||''):'+65 6209 5545';
   var fromExtra=isQ?'Urban Roti Catering & Events':'admin@urbanroti.com.sg';
   var toLabel=isQ?'Quotation For':'Billed To';
   var validityNote=isQ?'':'Payment due within 3 working days';
-  var paySection=isQ?'':('<div class="pdf-payment-section" style="margin-bottom:18px"><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#C4552A;margin-bottom:8px">Payment Instructions</div><div style="background:#FDF6EE;padding:14px;border-radius:6px;font-size:13px;line-height:1.7"><div><strong>Bank Transfer:</strong> DBS Bank Singapore</div><div><strong>Account Name:</strong> Urban Roti-Syed Alwi</div><div><strong>Account No:</strong> 100-904248-6</div><div><strong>Payment Reference:</strong> '+obj.id+'</div><div style="margin-top:6px;color:#C4552A">Please email proof of payment to admin@urbanroti.com.sg</div></div></div>');
+  var paySection=isQ?'':('<div class="pdf-payment-section" style="margin-bottom:18px"><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#C24E00;margin-bottom:8px">Payment Instructions</div><div style="background:#F5F3F2;padding:14px;border-radius:6px;font-size:13px;line-height:1.7"><div><strong>Bank Transfer:</strong> DBS Bank Singapore</div><div><strong>Account Name:</strong> Urban Roti-Syed Alwi</div><div><strong>Account No:</strong> 100-904248-6</div><div><strong>Payment Reference:</strong> '+obj.id+'</div><div style="margin-top:6px;color:#C24E00">Please email proof of payment to admin@urbanroti.com.sg</div></div></div>');
   // Pre-computed discount section
   var discObj=obj.discount||{type:'amt',value:0};
   var discountAmtPDF=discObj.type==='pct'?Math.round(((obj.foodTotal||0)+(obj.addTotal||0))*discObj.value/100*100)/100:(Math.min(discObj.value||0,(obj.foodTotal||0)+(obj.addTotal||0)));
   // Use stored discountAmount if available
   if(obj.discountAmount!==undefined)discountAmtPDF=obj.discountAmount||0;
   var discRowPDF=discountAmtPDF>0
-    ?('<div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-bottom:1px solid #F5EBD6;background:#EAF7EE">'
+    ?('<div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-bottom:1px solid #E3DFDD;background:#EAF7EE">'
       +'<span style="color:#2A7A50;font-weight:600">Discount'+(discObj.type==='pct'?' ('+discObj.value+'%)':'')+'</span>'
       +'<span style="color:#2A7A50;font-weight:700">- S$ '+discountAmtPDF.toFixed(2)+'</span>'
       +'</div>')
@@ -925,17 +931,17 @@ function genA4HTML(obj,type){
   if(!isQ&&advPay>0&&!isFullyPaid){
     // Balance still owed
     advSection=
-      '<div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-bottom:1px solid #F5EBD6;background:#EAF7EE">'
+      '<div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-bottom:1px solid #E3DFDD;background:#EAF7EE">'
       +'<span style="color:#2A7A50;font-weight:600">Less: Advance Payment</span>'
       +'<span style="color:#2A7A50;font-weight:700">- S$ '+advPay.toFixed(2)+'</span>'
       +'</div>'
-      +'<div style="display:flex;justify-content:space-between;padding:11px 12px;font-size:16px;font-weight:700;background:#C0392B;color:#fff;border-radius:4px;margin-top:3px">'
+      +'<div style="display:flex;justify-content:space-between;padding:11px 12px;font-size:16px;font-weight:700;background:#474546;color:#fff;border-radius:4px;margin-top:3px;border-left:5px solid #DD5904">'
       +'<span>BALANCE PAYABLE</span><span>S$ '+balDiff.toFixed(2)+'</span>'
       +'</div>';
   } else if(!isQ&&advPay>0&&advPay>_grandForAdv){
     // Overpaid — show refund
     advSection=
-      '<div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-bottom:1px solid #F5EBD6;background:#EAF7EE">'
+      '<div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-bottom:1px solid #E3DFDD;background:#EAF7EE">'
       +'<span style="color:#2A7A50;font-weight:600">Advance Payment Received</span>'
       +'<span style="color:#2A7A50;font-weight:700">S$ '+advPay.toFixed(2)+'</span>'
       +'</div>'
@@ -955,7 +961,7 @@ function genA4HTML(obj,type){
   if(!grand){var s2=foodTotal+addTotalCalc;gstAmt=s2*.09;grand=s2+gstAmt;subAmt=s2;}
   // Food items rows
   var foodRows=items.map(function(it,i){
-    return '<tr style="border-bottom:1px solid #F5EBD6">'
+    return '<tr style="border-bottom:1px solid #E3DFDD">'
       +'<td style="padding:10px 13px;font-size:13px"><strong>'+it.packageName+'</strong>'+(i===0?ml:'')+'</td>'
       +'<td style="padding:10px 13px;font-size:13px;text-align:center">'+it.qty+'</td>'
       +'<td style="padding:10px 13px;font-size:13px;text-align:right">S$ '+(+it.unitPrice||0).toFixed(2)+'</td>'
@@ -966,78 +972,77 @@ function genA4HTML(obj,type){
   var addSection='';
   if(addc.length>0&&addTotalCalc>0){
     var addRows=addc.map(function(c){
-      return '<tr style="border-bottom:1px solid #F5EBD6">'
+      return '<tr style="border-bottom:1px solid #E3DFDD">'
         +'<td style="padding:10px 13px;font-size:13px">'+(c.description||c.d||'Additional Charge')+'</td>'
         +'<td style="padding:10px 13px;font-size:13px;text-align:right;font-weight:700">S$ '+(+c.amount||+c.a||0).toFixed(2)+'</td>'
         +'</tr>';
     }).join('');
     addSection=
-      '<div style="display:flex;justify-content:space-between;background:#C4552A;color:#fff;padding:11px 14px;font-size:14px;font-weight:700;margin-top:12px;border-radius:4px 4px 0 0">'
+      '<div style="display:flex;justify-content:space-between;background:#474546;color:#fff;padding:11px 14px;font-size:14px;font-weight:700;margin-top:12px;border-radius:4px 4px 0 0;border-left:5px solid #DD5904">'
       +'<span>ADDITIONAL CHARGES</span><span>S$ '+addTotalCalc.toFixed(2)+'</span></div>'
       +'<table style="width:100%;border-collapse:collapse;margin-bottom:0"><thead><tr>'
-      +'<th style="background:rgba(196,85,42,.1);color:#C4552A;padding:8px 13px;font-size:12px;text-align:left;font-weight:700;border-bottom:2px solid #C4552A">Description</th>'
-      +'<th style="background:rgba(196,85,42,.1);color:#C4552A;padding:8px 13px;font-size:12px;text-align:right;font-weight:700;border-bottom:2px solid #C4552A">Amount (S$)</th>'
+      +'<th style="background:#F5F3F2;color:#474546;padding:8px 13px;font-size:12px;text-align:left;font-weight:700;border-bottom:2px solid #DD5904">Description</th>'
+      +'<th style="background:#F5F3F2;color:#474546;padding:8px 13px;font-size:12px;text-align:right;font-weight:700;border-bottom:2px solid #DD5904">Amount (S$)</th>'
       +'</tr></thead><tbody>'+addRows+'</tbody></table>';
   }
   var termsHtml=terms.map(function(l){
-    return '<li style="font-size:12px;color:#5A3010;margin-bottom:5px;line-height:1.5">'+l.replace(/^\d+\.\s*/,'')+'</li>';
+    return '<li style="font-size:12px;color:#2B2829;margin-bottom:5px;line-height:1.5">'+l.replace(/^\d+\.\s*/,'')+'</li>';
   }).join('');
   // EVENT STRIP — now ORANGE background (same as Grand Total)
   var eventDatesArr=obj.eventDates&&obj.eventDates.length?obj.eventDates:[obj.eventDate];
   var eventDatesDisplay=eventDatesArr.filter(Boolean).map(function(d){return fdl(d)}).join(' &amp; ')||'--';
-  return '<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#1A0C04;background:#fff}</style>'
+  return '<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#2B2829;background:#fff}</style>'
   +'<div style="background:#fff">'
-  +'<div id="pdf-repeating-header" style="padding:38px 52px 14px;background:#fff">'
+  +'<div id="pdf-repeating-header" style="padding:0;background:#474546;border-bottom:5px solid #DD5904">'
   // HEADER — Urban Roti name now uses serif font to match QUOTATION character
-  +'<div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:18px;border-bottom:3px solid #C4552A;margin-bottom:20px">'
+  +'<div style="display:flex;justify-content:space-between;align-items:center;padding:28px 52px 22px;margin:0">'
   +'<div style="display:flex;align-items:center;gap:14px">'
-  +'<img src="'+LOGO_B64+'" style="width:58px;height:58px;border-radius:8px;border:1px solid #E2D0B8;object-fit:contain">'
-  +'<div>'
-  +'<div style="font-size:28px;font-weight:700;color:#1A0C04;font-family:Georgia,serif;letter-spacing:-.5px">Urban Roti</div>'
-  +'<div style="font-size:11px;color:#C4552A;font-weight:700;margin-top:2px;letter-spacing:1.5px">CATERING &amp; EVENTS</div>'
-  +'<div style="font-size:12px;color:#8A6540;font-weight:700;margin-top:4px">+65 6209 5545 | admin@urbanroti.com.sg</div>'
-  +'<div style="font-size:12px;color:#8A6540;font-weight:700">101 Syed Alwi Road, Singapore 207677</div>'
+  +'<img src="'+LOGO_B64+'" style="width:150px;height:60px;object-fit:contain">'
+  +'<div style="border-left:1px solid #6F6C6D;padding-left:16px">'
+  +'<div style="font-size:11px;color:#FFB07A;font-weight:700;margin-top:2px;letter-spacing:1.5px">CATERING &amp; EVENTS</div>'
+  +'<div style="font-size:12px;color:#D9D6D5;font-weight:700;margin-top:4px">+65 6209 5545 | admin@urbanroti.com.sg</div>'
+  +'<div style="font-size:12px;color:#D9D6D5;font-weight:700">101 Syed Alwi Road, Singapore 207677</div>'
   +'</div></div>'
   +'<div style="text-align:right">'
-  +'<div style="font-size:34px;font-weight:700;color:#C4552A;letter-spacing:1px">'+docTypeLabel+'</div>'
-  +'<div style="font-size:15px;font-weight:700;margin-top:5px">'+obj.id+'</div>'
-  +'<div style="font-size:12px;color:#8A6540;font-weight:700;margin-top:4px">'+docDate+'</div>'+quoteRefRow
+  +'<div style="font-family:\'Playfair Display\',Georgia,serif;font-size:34px;font-weight:700;color:#DD5904;letter-spacing:1px">'+docTypeLabel+'</div>'
+  +'<div style="font-size:15px;font-weight:700;color:#fff;margin-top:5px">'+obj.id+'</div>'
+  +'<div style="font-size:12px;color:#D9D6D5;font-weight:700;margin-top:4px">'+docDate+'</div>'+quoteRefRow
   +'</div></div>'
   +'</div>'
   +'<div id="pdf-body" style="padding:20px 52px 44px;background:#fff">'
   // FROM / TO (not in repeating header — only shows on page 1)
   +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px">'
-  +'<div style="background:#FDF6EE;border-left:4px solid #C4552A;padding:13px 16px;border-radius:4px">'
-  +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#C4552A;margin-bottom:6px">'+fromLabel+'</div>'
+  +'<div style="background:#F5F3F2;border-left:4px solid #474546;padding:13px 16px;border-radius:4px">'
+  +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#474546;margin-bottom:6px">'+fromLabel+'</div>'
   +'<div style="font-size:17px;font-weight:700">'+fromName+'</div>'
-  +'<div style="font-size:12px;color:#8A6540;font-weight:700;margin-top:3px">'+fromContact+'</div>'
-  +'<div style="font-size:12px;color:#8A6540;font-weight:700">'+fromExtra+'</div></div>'
-  +'<div style="background:#FDF6EE;border-left:4px solid #D4922A;padding:13px 16px;border-radius:4px">'
-  +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#D4922A;margin-bottom:6px">'+toLabel+'</div>'
+  +'<div style="font-size:12px;color:#6B6769;font-weight:700;margin-top:3px">'+fromContact+'</div>'
+  +'<div style="font-size:12px;color:#6B6769;font-weight:700">'+fromExtra+'</div></div>'
+  +'<div style="background:#F5F3F2;border-left:4px solid #DD5904;padding:13px 16px;border-radius:4px">'
+  +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#C24E00;margin-bottom:6px">'+toLabel+'</div>'
   +'<div style="font-size:17px;font-weight:700">'+(obj.customer?.name||'')+'</div>'
-  +'<div style="font-size:12px;color:#8A6540;font-weight:700;margin-top:3px">'+(obj.customer?.contact||'')+'</div>'
-  +(obj.customer?.email?'<div style="font-size:12px;color:#8A6540;font-weight:700;margin-top:2px">'+cEsc(obj.customer.email)+'</div>':'')
+  +'<div style="font-size:12px;color:#6B6769;font-weight:700;margin-top:3px">'+(obj.customer?.contact||'')+'</div>'
+  +(obj.customer?.email?'<div style="font-size:12px;color:#6B6769;font-weight:700;margin-top:2px">'+cEsc(obj.customer.email)+'</div>':'')
   +'</div></div>'
   // Event strip, pax, content — all in pdf-body
-  +'<div style="background:#C4552A;border-radius:8px;padding:16px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">'
-  +'<div><div style="font-size:10px;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.5px">Event Date'+(eventDatesArr.filter(Boolean).length>1?'s':'')+'</div><div style="font-size:15px;font-weight:700;color:#fff;margin-top:4px;line-height:1.4">'+eventDatesDisplay+'</div></div>'
-  +'<div><div style="font-size:10px;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.5px">Slot</div><div style="font-size:15px;font-weight:700;color:#fff;margin-top:4px">'+(obj.slot||'--')+'</div></div>'
-  +'<div><div style="font-size:10px;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.5px">Time</div><div style="font-size:15px;font-weight:700;color:#fff;margin-top:4px">'+tr2+'</div></div>'
-  +'<div><div style="font-size:10px;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.5px">Venue</div><div style="font-size:12px;font-weight:700;color:#fff;margin-top:4px;line-height:1.4">'+(obj.venue||'--')+'</div></div></div>'
+  +'<div style="background:#474546;border-radius:8px;padding:16px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">'
+  +'<div><div style="font-size:10px;color:#CFCBCA;text-transform:uppercase;letter-spacing:.5px">Event Date'+(eventDatesArr.filter(Boolean).length>1?'s':'')+'</div><div style="font-size:15px;font-weight:700;color:#FFB07A;margin-top:4px;line-height:1.4">'+eventDatesDisplay+'</div></div>'
+  +'<div><div style="font-size:10px;color:#CFCBCA;text-transform:uppercase;letter-spacing:.5px">Slot</div><div style="font-size:15px;font-weight:700;color:#fff;margin-top:4px">'+(obj.slot||'--')+'</div></div>'
+  +'<div><div style="font-size:10px;color:#CFCBCA;text-transform:uppercase;letter-spacing:.5px">Time</div><div style="font-size:15px;font-weight:700;color:#fff;margin-top:4px">'+tr2+'</div></div>'
+  +'<div><div style="font-size:10px;color:#CFCBCA;text-transform:uppercase;letter-spacing:.5px">Venue</div><div style="font-size:12px;font-weight:700;color:#fff;margin-top:4px;line-height:1.4">'+(obj.venue||'--')+'</div></div></div>'
   // Pax
   +'<div style="display:flex;gap:28px;margin-bottom:'+(obj.remarks?'12px':'20px')+';font-size:13px">'
-  +'<div><span style="color:#8A6540;font-weight:700">Adults: </span><strong>'+(obj.pax?.adults||0)+'</strong></div>'
-  +'<div><span style="color:#8A6540;font-weight:700">Kids: </span><strong>'+(obj.pax?.kids||0)+'</strong></div>'
-  +'<div><span style="color:#8A6540;font-weight:700">Total Pax: </span><strong>'+paxTotal+'</strong></div></div>'
-  +(obj.remarks?'<div style="background:#FDF6EE;border-left:4px solid #8A6540;padding:11px 16px;border-radius:4px;margin-bottom:16px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#8A6540;margin-bottom:4px">Remarks</div><div style="font-size:13px;line-height:1.6">'+obj.remarks+'</div></div>':'')
+  +'<div><span style="color:#6B6769;font-weight:700">Adults: </span><strong>'+(obj.pax?.adults||0)+'</strong></div>'
+  +'<div><span style="color:#6B6769;font-weight:700">Kids: </span><strong>'+(obj.pax?.kids||0)+'</strong></div>'
+  +'<div><span style="color:#6B6769;font-weight:700">Total Pax: </span><strong>'+paxTotal+'</strong></div></div>'
+  +(obj.remarks?'<div style="background:#F5F3F2;border-left:4px solid #6B6769;padding:11px 16px;border-radius:4px;margin-bottom:16px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#6B6769;margin-bottom:4px">Remarks</div><div style="font-size:13px;line-height:1.6">'+obj.remarks+'</div></div>':'')
   // FOOD PACKAGES header (orange) + table with orange sub-header
-  +'<div style="display:flex;justify-content:space-between;background:#C4552A;color:#fff;padding:11px 14px;font-size:14px;font-weight:700;border-radius:4px 4px 0 0">'
+  +'<div style="display:flex;justify-content:space-between;background:#474546;color:#fff;padding:11px 14px;font-size:14px;font-weight:700;border-radius:4px 4px 0 0;border-left:5px solid #DD5904">'
   +'<span>FOOD PACKAGES</span><span>S$ '+foodTotal.toFixed(2)+'</span></div>'
   +'<table style="width:100%;border-collapse:collapse;margin-bottom:0"><thead><tr>'
-  +'<th style="background:rgba(196,85,42,.1);color:#C4552A;padding:9px 13px;font-size:12px;text-align:left;font-weight:700;border-bottom:2px solid #C4552A">Package / Description</th>'
-  +'<th style="background:rgba(196,85,42,.1);color:#C4552A;padding:9px 13px;font-size:12px;text-align:center;font-weight:700;border-bottom:2px solid #C4552A">Pax</th>'
-  +'<th style="background:rgba(196,85,42,.1);color:#C4552A;padding:9px 13px;font-size:12px;text-align:right;font-weight:700;border-bottom:2px solid #C4552A">Unit Price (S$)</th>'
-  +'<th style="background:rgba(196,85,42,.1);color:#C4552A;padding:9px 13px;font-size:12px;text-align:right;font-weight:700;border-bottom:2px solid #C4552A">Amount (S$)</th>'
+  +'<th style="background:#F5F3F2;color:#474546;padding:9px 13px;font-size:12px;text-align:left;font-weight:700;border-bottom:2px solid #DD5904">Package / Description</th>'
+  +'<th style="background:#F5F3F2;color:#474546;padding:9px 13px;font-size:12px;text-align:center;font-weight:700;border-bottom:2px solid #DD5904">Pax</th>'
+  +'<th style="background:#F5F3F2;color:#474546;padding:9px 13px;font-size:12px;text-align:right;font-weight:700;border-bottom:2px solid #DD5904">Unit Price (S$)</th>'
+  +'<th style="background:#F5F3F2;color:#474546;padding:9px 13px;font-size:12px;text-align:right;font-weight:700;border-bottom:2px solid #DD5904">Amount (S$)</th>'
   +'</tr></thead><tbody>'+foodRows+'</tbody></table>'
   // ADDITIONAL CHARGES (orange) if any
   +addSection
@@ -1045,19 +1050,19 @@ function genA4HTML(obj,type){
   // TOTALS — right-aligned box (protected from page splits)
   +'<div class="pdf-totals" style="display:flex;justify-content:flex-end;margin-top:16px;margin-bottom:16px"><div style="width:270px">'
   +discRowPDF
-  +'<div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-bottom:1px solid #F5EBD6"><span style="color:#8A6540;font-weight:700">Subtotal</span><span>S$ '+subAmt.toFixed(2)+'</span></div>'
-  +'<div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-bottom:1px solid #F5EBD6"><span style="color:#D4922A;font-weight:700">GST (9%)</span><span>S$ '+gstAmt.toFixed(2)+'</span></div>'
-  +'<div style="display:flex;justify-content:space-between;padding:11px 12px;font-size:16px;font-weight:700;background:#C4552A;color:#fff;border-radius:4px;margin-top:3px"><span>GRAND TOTAL</span><span>S$ '+grand.toFixed(2)+'</span></div>'
+  +'<div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-bottom:1px solid #E3DFDD"><span style="color:#6B6769;font-weight:700">Subtotal</span><span>S$ '+subAmt.toFixed(2)+'</span></div>'
+  +'<div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-bottom:1px solid #E3DFDD"><span style="color:#C24E00;font-weight:700">GST (9%)</span><span>S$ '+gstAmt.toFixed(2)+'</span></div>'
+  +'<div style="display:flex;justify-content:space-between;padding:11px 12px;font-size:16px;font-weight:700;background:#DD5904;color:#fff;border-radius:4px;margin-top:3px"><span>GRAND TOTAL</span><span>S$ '+grand.toFixed(2)+'</span></div>'
   +advSection
   +'</div></div>'
   // Amount in words (protected — never split)
-  +'<div class="pdf-amount-words" style="background:#FDF6EE;border:1px dashed #D4922A;border-radius:6px;padding:13px 16px;font-size:12px;font-style:italic;color:#3C1A08;margin-bottom:20px;line-height:1.6">'
+  +'<div class="pdf-amount-words" style="background:#F5F3F2;border:1px dashed #DD5904;border-radius:6px;padding:13px 16px;font-size:12px;font-style:italic;color:#2B2829;margin-bottom:20px;line-height:1.6">'
   +'<strong>Amount in Words:</strong> '+words(grand)+'</div>'
   +paySection
   // Bank Details — above Terms
   // Bank Details + PayNow QR
-  +'<div id="bank-details-section" style="margin-bottom:20px;padding:16px 18px;background:#FDF6EE;border:1.5px solid #E2D0B8;border-radius:6px">'
-  +'<div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#C4552A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C4552A">Bank Details</div>'
+  +'<div id="bank-details-section" style="margin-bottom:20px;padding:16px 18px;background:#F5F3F2;border:1.5px solid #E3DFDD;border-radius:6px">'
+  +'<div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#C24E00;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #DD5904">Bank Details</div>'
   +'<div style="display:flex;align-items:flex-start;gap:20px">'
   +'<div style="flex:1;display:grid;grid-template-columns:1fr;gap:4px 0;font-size:13px;line-height:1.8">'
   +'<div><strong>Account Name:</strong> Urban Roti-Syed Alwi</div>'
@@ -1066,38 +1071,38 @@ function genA4HTML(obj,type){
   +'<div><strong>Branch:</strong> Plaza Singapura Branch</div>'
   +'</div>'
   +'<div style="flex-shrink:0;text-align:center">'
-  +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C4552A;margin-bottom:6px">PayNow</div>'
-  +'<img src="'+PAYNOW_QR_STATIC+'" style="width:115px;height:115px;border:2px solid #C4552A;border-radius:8px;background:#fff">'
-  +'<div style="font-size:10px;color:#8A6540;margin-top:5px;font-weight:700">UEN: 201510984RPN2</div>'
+  +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C24E00;margin-bottom:6px">PayNow</div>'
+  +'<img src="'+PAYNOW_QR_STATIC+'" style="width:115px;height:115px;border:2px solid #DD5904;border-radius:8px;background:#fff">'
+  +'<div style="font-size:10px;color:#6B6769;margin-top:5px;font-weight:700">UEN: 201510984RPN2</div>'
   +'</div>'
   +'<div style="flex-shrink:0;text-align:center">'
-  +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C4552A;margin-bottom:6px">Credit Card</div>'
-  +'<img src="'+CC_QR_STATIC+'" style="width:115px;height:115px;border:2px solid #C4552A;border-radius:8px;background:#fff">'
-  +'<div style="font-size:10px;color:#8A6540;margin-top:5px;font-weight:700">Scan to pay by card</div>'
+  +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C24E00;margin-bottom:6px">Credit Card</div>'
+  +'<img src="'+CC_QR_STATIC+'" style="width:115px;height:115px;border:2px solid #DD5904;border-radius:8px;background:#fff">'
+  +'<div style="font-size:10px;color:#6B6769;margin-top:5px;font-weight:700">Scan to pay by card</div>'
   +'</div>'
   +'</div></div>'
   // Terms & Conditions (protected)
-  +'<div class="pdf-terms" style="margin-bottom:20px"><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#C4552A;margin-bottom:8px">Terms &amp; Conditions</div>'
+  +'<div class="pdf-terms" style="margin-bottom:20px"><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#C24E00;margin-bottom:8px">Terms &amp; Conditions</div>'
   +'<ol style="padding-left:18px">'+termsHtml+'</ol></div>'
   // Signatures (menu details added as a separate last page via xPDF/waWithPDF)
   +'<div id="sig-section">'
   +(isQ
-    ?'<div style="margin-top:60px;padding:18px;text-align:center;background:#FDF6EE;border:1.5px dashed #C4552A;border-radius:8px">'
-     +'<div style="font-size:13px;font-style:italic;color:#8A6540;font-weight:700;letter-spacing:.3px">This is a system-generated quotation and no signature is required.</div>'
+    ?'<div style="margin-top:60px;padding:18px;text-align:center;background:#F5F3F2;border:1.5px dashed #DD5904;border-radius:8px">'
+     +'<div style="font-size:13px;font-style:italic;color:#6B6769;font-weight:700;letter-spacing:.3px">This is a system-generated quotation and no signature is required.</div>'
      +'</div>'
     :'<div style="display:flex;justify-content:flex-end;margin-top:72px">'
-     +'<div style="border-top:2px solid #1A0C04;padding-top:10px;width:260px;text-align:center">'
-     +'<div style="font-size:13px;font-weight:700;color:#1A0C04">Authorised Signature</div>'
-     +'<div style="font-size:11px;color:#8A6540;font-weight:700;margin-top:2px">Urban Roti Catering &amp; Events</div>'
+     +'<div style="border-top:2px solid #2B2829;padding-top:10px;width:260px;text-align:center">'
+     +'<div style="font-size:13px;font-weight:700;color:#2B2829">Authorised Signature</div>'
+     +'<div style="font-size:11px;color:#6B6769;font-weight:700;margin-top:2px">Urban Roti Catering &amp; Events</div>'
      +'</div>'
      +'</div>'
   )
   +'</div>'
   // Footer
-  +'<div class="pdf-footer" style="margin-top:28px;padding-top:13px;border-top:2px solid #1A0C04;display:flex;justify-content:space-between;align-items:center">'
+  +'<div class="pdf-footer" style="margin-top:28px;padding-top:13px;border-top:3px solid #DD5904;display:flex;justify-content:space-between;align-items:center">'
   +'<div><div style="font-size:13px;font-weight:700">Urban Roti Catering &amp; Events</div>'
-  +'<div style="font-size:11px;color:#8A6540;font-weight:700">101 Syed Alwi Road, Singapore 207677 | www.urbanroti.com.sg | +65 6209 5545</div></div>'
-  +'<div style="text-align:right;font-size:11px;color:#8A6540;font-weight:700"><div>'+obj.id+'</div><div>'+validityNote+'</div></div>'
+  +'<div style="font-size:11px;color:#6B6769;font-weight:700">101 Syed Alwi Road, Singapore 207677 | www.urbanroti.com.sg | +65 6209 5545</div></div>'
+  +'<div style="text-align:right;font-size:11px;color:#6B6769;font-weight:700"><div>'+obj.id+'</div><div>'+validityNote+'</div></div>'
   +'</div>'
   +'</div>'
   +'</div>';
@@ -1116,7 +1121,7 @@ async function addMenuToPDF(pdf, obj){
       var img=new Image();img.crossOrigin='anonymous';
       await new Promise(function(res,rej){img.onload=res;img.onerror=rej;img.src=obj.menuFile.data});
       pdf.addPage();
-      pdf.setFillColor(26,12,4);pdf.rect(0,0,210,14,'F');
+      pdf.setFillColor(71,69,70);pdf.rect(0,0,210,14,'F');
       pdf.setTextColor(255,255,255);pdf.setFontSize(11);
       pdf.text('ATTACHED MENU  |  '+obj.id,10,9);
       var maxW=190,imgH=img.height*maxW/img.width;
@@ -1213,7 +1218,7 @@ async function addMenuTextPageToPDF(pdf,obj,headerData,hdrH,pdfW,pdfH,gapH,foote
   // Render menu content as an image (same 794px width as main doc)
   var mWrap=document.createElement('div');
   mWrap.style.cssText='position:fixed;left:-9999px;top:0;width:690px;background:#fff;font-family:Arial,Helvetica,sans-serif;padding:0;box-sizing:border-box;';
-  mWrap.innerHTML='<div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#C4552A;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #C4552A">Menu Details</div>'
+  mWrap.innerHTML='<div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#C24E00;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #C4552A">Menu Details</div>'
     +'<div style="font-size:13px;white-space:pre-wrap;line-height:1.9;color:#1A0C04">'+obj.menuText+'</div>';
   document.body.appendChild(mWrap);
   await new Promise(r=>setTimeout(r,150));
@@ -1239,11 +1244,11 @@ async function addMenuTextPageToPDF(pdf,obj,headerData,hdrH,pdfW,pdfH,gapH,foote
       // Repeating header
       if(headerData)pdf.addImage(headerData,'PNG',0,0,pdfW,hdrH);
       // Separator lines
-      pdf.setDrawColor(226,208,184);pdf.setLineWidth(0.4);
+      pdf.setDrawColor(227,223,221);pdf.setLineWidth(0.4);
       pdf.line(10,hdrH+gapH-1,pdfW-10,hdrH+gapH-1);
       pdf.line(10,pdfH-footerH+2,pdfW-10,pdfH-footerH+2);
       // Gap label
-      pdf.setFontSize(7.5);pdf.setTextColor(140,101,64);
+      pdf.setFontSize(7.5);pdf.setTextColor(107,103,105);
       pdf.setFont(undefined,'italic');
       pdf.text('Menu Details'+(mPages>1?' ('+ mp+' of '+mPages+')':''),10,hdrH+5);
       pdf.setFont(undefined,'normal');
@@ -1309,8 +1314,8 @@ async function xPDF(id,type){
     // White footer strip so content doesn't bleed into page-number area
     pdf.setFillColor(255,255,255);pdf.rect(0,pdfH-footerStripH,pdfW,footerStripH,'F');
     // Thin separator above footer
-    pdf.setDrawColor(226,208,184);pdf.setLineWidth(0.4);pdf.line(10,pdfH-footerStripH+2,pdfW-10,pdfH-footerStripH+2);
-    pdf.setFontSize(8.5);pdf.setTextColor(140,101,64);
+    pdf.setDrawColor(227,223,221);pdf.setLineWidth(0.4);pdf.line(10,pdfH-footerStripH+2,pdfW-10,pdfH-footerStripH+2);
+    pdf.setFontSize(8.5);pdf.setTextColor(107,103,105);
     pdf.text('Page 1'+(totalPages>1?' of '+totalPages:''),pdfW-10,pdfH-8,{align:'right'});
     if(totalPages>1){pdf.setFont(undefined,'italic');pdf.text('Continued on Page 2  >>',10,pdfH-8);pdf.setFont(undefined,'normal');}
 
@@ -1326,13 +1331,13 @@ async function xPDF(id,type){
       // White footer strip (prevent T&C / content bleeding into footer)
       pdf.setFillColor(255,255,255);pdf.rect(0,pdfH-footerStripH,pdfW,footerStripH,'F');
       // Thin separator lines at header bottom and footer top
-      pdf.setDrawColor(226,208,184);pdf.setLineWidth(0.4);
+      pdf.setDrawColor(227,223,221);pdf.setLineWidth(0.4);
       pdf.line(10,hdrH+gapH-1,pdfW-10,hdrH+gapH-1);
       pdf.line(10,pdfH-footerStripH+2,pdfW-10,pdfH-footerStripH+2);
       // Repeating header
       if(headerData)pdf.addImage(headerData,'PNG',0,0,pdfW,hdrH);
       // "Continued from page X" — inside gap, with 1 blank line below before content starts
-      pdf.setFontSize(7.5);pdf.setTextColor(140,101,64);
+      pdf.setFontSize(7.5);pdf.setTextColor(107,103,105);
       pdf.setFont(undefined,'italic');
       pdf.text('<< Continued from Page '+(pg-1),10,hdrH+5);
       pdf.setFont(undefined,'normal');
@@ -1394,8 +1399,8 @@ async function waWithPDF(type,id){
     // Page 1
     pdf.addImage(imgData,'PNG',0,0,pdfW,totalImgHW);
     pdf.setFillColor(255,255,255);pdf.rect(0,pdfH-22,pdfW,22,'F');
-    pdf.setDrawColor(226,208,184);pdf.setLineWidth(0.4);pdf.line(10,pdfH-20,pdfW-10,pdfH-20);
-    pdf.setFontSize(8.5);pdf.setTextColor(140,101,64);
+    pdf.setDrawColor(227,223,221);pdf.setLineWidth(0.4);pdf.line(10,pdfH-20,pdfW-10,pdfH-20);
+    pdf.setFontSize(8.5);pdf.setTextColor(107,103,105);
     pdf.text('Page 1'+(totalPagesW>1?' of '+totalPagesW:''),pdfW-10,pdfH-8,{align:'right'});
     if(totalPagesW>1){pdf.setFont(undefined,'italic');pdf.text('Continued on Page 2  >>',10,pdfH-8);pdf.setFont(undefined,'normal');}
 
@@ -1406,11 +1411,11 @@ async function waWithPDF(type,id){
       pdf.addImage(imgData,'PNG',0,imgYW,pdfW,totalImgHW);
       pdf.setFillColor(255,255,255);pdf.rect(0,0,pdfW,hdrHW+13,'F');
       pdf.setFillColor(255,255,255);pdf.rect(0,pdfH-22,pdfW,22,'F');
-      pdf.setDrawColor(226,208,184);pdf.setLineWidth(0.4);
+      pdf.setDrawColor(227,223,221);pdf.setLineWidth(0.4);
       pdf.line(10,hdrHW+12,pdfW-10,hdrHW+12);
       pdf.line(10,pdfH-20,pdfW-10,pdfH-20);
       if(headerDataW)pdf.addImage(headerDataW,'PNG',0,0,pdfW,hdrHW);
-      pdf.setFontSize(7.5);pdf.setTextColor(140,101,64);
+      pdf.setFontSize(7.5);pdf.setTextColor(107,103,105);
       pdf.setFont(undefined,'italic');
       pdf.text('<< Continued from Page '+(pgW-1),10,hdrHW+5);
       pdf.setFont(undefined,'normal');
